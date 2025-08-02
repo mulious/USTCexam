@@ -1,0 +1,212 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib,float,tikz}
+\usepackage{caption,subcaption,calligra}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{bm}
+
+\title{23线性代数B2期末}
+\author{\calligra{NULIOUS}}
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\begin{document}
+\maketitle
+\noindent 一．填空\\
+1．设线性变换 $\mathcal{A}$ 在某组基下的矩阵为 $\left(\begin{array}{lll}1 & b & 1 \\ b & a & c \\ 1 & c & 1\end{array}\right)$ ，在另一组基下的矩阵为 $\left(\begin{array}{lll}2 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 0\end{array}\right)$，则 $(a, b, c)=\underline{\hspace{1cm}}$\\
+解：（1，0，0）\\
+线性变换在两组基下的矩阵相似，所以他们的迹相等，则 $\mathrm{a}=1$\\
+另外他们的秩也相等，则 $\mathrm{b}=\mathrm{c}=0$\\
+
+
+\noindent 2．$A=\left(\begin{array}{ccc}2 & 1 & 0 \\ -2 & 0 & 1 \\ 2 & 2 & 1\end{array}\right)$ 的正交相抵标准型为 $\underline{\hspace{1cm}}$\\
+解：$\left(\begin{array}{ccc}\sqrt{\frac{19+\sqrt{145}}{2}} & 0 & 0 \\ 0 & \sqrt{\frac{19-\sqrt{145}}{2}} & 0 \\ 0 & 0 & 0\end{array}\right)$\\
+注意审题，正交相抵标准型就是要求其奇异值\\
+我们有 
+$$A A^{T}=\left(\begin{array}{ccc}5 & -4 & 6 \\ -4 & 5 & -3 \\ 6 & -3 & 9\end{array}\right)$$\\
+计算其特征值有 
+$$\lambda_{1}=0 \quad \lambda_{2}=\frac{19+\sqrt{145}}{2} \quad \lambda_{3}=\frac{19-\sqrt{145}}{2}$$
+最后别忘记开根号\\
+
+
+
+\noindent 3．$A=\left(\begin{array}{ccc}2 & 2 & -1 \\ -1 & 2 & 2 \\ -2 & 1 & -2\end{array}\right)$ 的正交相抵标准型为 $\underline{\hspace{1cm}}$\\
+解：$\left(\begin{array}{ccc}-3 & 0 & 0 \\ 0 & \frac{5}{2} & \frac{\sqrt{11}}{2} \\ 0 & \frac{-\sqrt{11}}{2} & \frac{5}{2}\end{array}\right)$\\
+这是一道填空题，按理来说这应该是规范阵\\
+验证有 
+$$A^{T} A=A A^{T}=9 I$$
+那我们只用计算 $A$ 的特征值即可\\
+$$\lambda_{1}=-3, \lambda_{2}=\frac{5}{2}+\frac{\sqrt{11}}{2} i, \lambda_{3}=\frac{5}{2}-\frac{\sqrt{11}}{2} i$$
+结果为：$$\left(\begin{array}{ccc}-3 & 0 & 0 \\ 0 & \frac{5}{2} & \frac{\sqrt{11}}{2} \\ 0 & \frac{-\sqrt{11}}{2} & \frac{5}{2}\end{array}\right)$$\\
+
+
+
+\noindent 4．设 $V$ 为区间 $[0,1]$ 上连续函数全体按照内积 $(f, g)=$ $\int_{0}^{1} f(x) g(x) d x$ 构成的欧氏空间，$W=\left\langle 1, x, x^{2}\right\rangle$ 是 $V $的子空间，则函数 $f(x)=x^{3}$ 在 $W$ 上的正交投影为 $\underline{\hspace{1cm}}$\\
+解：$\frac{3}{2} x^{2}-\frac{3}{5} x+\frac{1}{20}$\\
+注意要求正交投影要构造 $W=\left\langle 1, x, x^{2}\right\rangle$ 的一组标准正交基，过程略\\
+
+
+
+\noindent 5．设 $V=\langle\cos (x), \cos (2 x), \ldots, \cos (n x)\rangle$ ，求 $V$ 的一组基 $\left\{\alpha_{1}=\right.$ $\left.\cos (x), \alpha_{2}=\cos (2 x), \ldots, \alpha_{n}=\cos (n x)\right\}$ 的对偶基 $\underline{\hspace{1cm}}$\\
+解：设 $\left\{f_{1}, f_{2}, \ldots, f_{n}\right\}$ 为 $\left\{\alpha_{1}, \alpha_{2}, \ldots, \alpha_{n}\right\}$ 的对偶基．由 $f_{i}(\cos (j x))=$ $\delta_{i j}$ 对 $p(x)=\sum_{j=1}^{n} p_{j} \sin (j x) \in V$ ，有
+$$
+f_{i}(p)=\sum_{i=1}^{\pi} p_{j} f_{i}\left(\alpha_{j}\right)=p_{i}=\frac{1}{\pi} \int_{0}^{2 \pi} p(x) \cos (i x) d x
+$$\\
+
+
+\noindent 二。\\
+给定矩阵 $A=\left(\begin{array}{lll}3 & -2 & 1 \\ 2 & -2 & 2 \\ 3 & -6 & 5\end{array}\right)$\\
+（1）求多项式矩阵 $\lambda I-A$ 的行列式因子，不变因子，初等因子组及 Smith 标准型\\
+（2）求 A 的 Jordan 标准型\\
+解：Smith 标准型为
+ $$\left(\begin{array}{ccc}1 & 0 & 0 \\ 0 & \lambda-2 & 0 \\ 0 & 0 & (\lambda-2)^{2}\end{array}\right)$$
+Jordan 标准型为 
+$$J=\left(J_{2}(2), 2\right)$$\\
+
+
+
+\noindent 三． $\mathcal{A}$ 为有限维线性空间 $V$ 上的线性变换，且 $\operatorname{rank}(\mathcal{A})=\operatorname{rank}\left(\mathcal{A}^{2}\right)$，求证：$V=\operatorname{Im}(\mathcal{A}) \oplus \operatorname{ker}(\mathcal{A})$\\
+证：先证明 $r(\mathcal{A})-r\left(\mathcal{A}^{2}\right)=\operatorname{dim}(\operatorname{ker} \mathcal{A} \cap \operatorname{Im}(\mathcal{A}))$\\
+考虑 $\mathcal{A}$ 在 $\operatorname{Im}(\mathcal{A})$ 上的限制： $$\mathcal{A} \mid \operatorname{Im} \mathcal{A}: \operatorname{Im} \mathcal{A} \rightarrow V$$
+有维数公式： 
+$$\operatorname{dimker} \mathcal{A}|\operatorname{Im} \mathcal{A}=\operatorname{dim} \operatorname{Im} \mathcal{A}-\operatorname{dim} \operatorname{Im} \mathcal{A}| \operatorname{Im} \mathcal{A}$$
+其中 
+$$\operatorname{ker} \mathcal{A} \mid \operatorname{Im} \mathcal{A}=\operatorname{ker} \mathcal{A} \cap \operatorname{Im} \mathcal{A} \quad \operatorname{dimIm} \mathcal{A}=r(\mathcal{A})$$
+$$\operatorname{Im} \mathcal{A} \mid \operatorname{Im} \mathcal{A}=\mathcal{A}^{2}(V)$$
+则 $\operatorname{dimIm}\left(\mathcal{A}^{2}\right)=r\left(\mathcal{A}^{2}\right)$
+代入得到 $$r(\mathcal{A})-r\left(\mathcal{A}^{2}\right)=\operatorname{dim}(\operatorname{ker} \mathcal{A} \cap \operatorname{Im} \mathcal{A})$$
+这样我们就证明了直和\\
+又由维数公式 $$\operatorname{dim} V=\operatorname{dim}(\operatorname{Im}(\mathcal{A}) \oplus \operatorname{ker}(\mathcal{A}))$$这就说明了两边相等，证毕\\
+
+
+
+\noindent 四．设 $M:=\left\{\alpha_{1}, \alpha_{2}, \alpha_{3}, \alpha_{4}\right\}$ 为线性空间 $V$ 的一组基， $\mathcal{A}$ 是 $V$ 上的线性变换， $\mathcal{A}$ 在 $M$ 下的矩阵是
+
+$$
+A=\left(\begin{array}{llll}
+	1 & 0 & 0 & 0 \\
+	0 & 2 & 1 & 0 \\
+	0 & 0 & 2 & 0 \\
+	1 & 0 & 0 & 1
+\end{array}\right)
+$$
+（1）求 $\mathcal{A}$ 的特征多项式，最小多项式及 Jordan 标准型\\
+（2）求 $\mathcal{A}$ 的特征子空间\\
+（3）求证：如果 $W$ 是 $\mathcal{A}$ 的三维不变子空间，则 $W$ 包含 $\mathcal{A}$ 的所有特征子空间\\
+解：\\
+（1）显然按照行列式展开有特征值1和2（均为两重）\\
+$$\varphi_{\mathcal{A}}(x)=(x-1)^{2}(x-2)^{2}$$
+简单验证得到 $$d_{\mathcal{A}}(x)=(x-1)^{2}(x-2)^{2}\quad 
+J=\operatorname{diag}\left(J_{2}(1), J_{2}(2)\right)$$
+（2）\\
+$\lambda=1$ 有特征向量 $\left(\begin{array}{l}0 \\ 0 \\ 0 \\ 1\end{array}\right)$\\
+$\lambda=2$ 有特征向量 $\left(\begin{array}{l}0 \\ 1 \\ 0 \\ 0\end{array}\right)$\\
+$\mathcal{A}$ 的特征子空间就是由这两个向量分别生成的子空间\\
+（3）\\
+我们先证明一个引理：\\
+如果 $W$ 是 $\mathcal{A}$ 的不变子空间，那么 $W$ 是 $f(\mathcal{A})$ 的不变子空间，这里 $f$ 是任意多项式\\
+证：这是因为 $\operatorname{Im}\left(\mathcal{A}^{k}\right) \subseteq \operatorname{Im}(\mathcal{A})$ 且 $V$ 的任意一个子空间都是数乘变换的不变子空间\\
+
+
+\noindent 我们再证明第三问，首先特征值1和2的根子空间都是二维的（代数重数都是 2）\\
+由引理我们知道 $W$ 是 $\mathcal{A}-\lambda I$ 的不变子空间\\
+事实上，$W$ 是 $\mathcal{A}-\lambda I$ 的不变子空间等价于 $W$ 是 $\mathcal{A}$ 的不变子空间，因为存在一个一次的多项式使得 $f(\mathcal{A}-\lambda I)=\mathcal{A}$ ，由此自然推出：\\
+如果 $W$ 不包含 $\mathcal{A}$ 的所有特征子空间，那么一定有某个特征值的特征子空间不在 $W$ 中，这个特征子空间同时是 $\mathcal{A}$ 与 $\mathcal{A}-\lambda I$ 的不变子空间，进而这个特征值对应的根子空间不在 $W$ 中（否则取根子空间任意一个向量，它经过 $\mathcal{A}-\lambda I$ 作用后一定是特征向量，不包含在 $W$ 中，那么就与 $W$ 是不变子空间矛盾了）\\
+注意 $\operatorname{dim} V=4, \operatorname{dim} W=3, \operatorname{dim} W_{\lambda}=2$ 且 $\operatorname{dim}\left(W \cap W_{\lambda}\right)=0$\\
+且 $W+W_{\lambda}$ 是 $V$ 的子空间，但是
+$$\operatorname{dim}\left(W+W_{\lambda}\right)=\operatorname{dim} W+\operatorname{dim} W_{\lambda}-\operatorname{dim}\left(W \cap W_{\lambda}\right)=5>\operatorname{dim} V$$
+矛盾，可知结论成立\\
+
+
+
+\noindent 五。求证：实方阵 $A$ 为规范方阵的充分必要条件是存在实系数多项式 $f(x)$ 使得 $A^{T}=f(A)$\\
+证：$(\Leftarrow)$ 注意到 $A$ 与自己的任意正整数次幂是可交换的且与 $I$ 可交换，进而与 $f(A)$ 是可交换的\\
+$(\Rightarrow)$ 新书上给出了复方阵类似结论，见例5．4．4\\
+我们证明实方阵情况：\\
+$A$ 规范则有正交相似标准型，存在正交阵 $O$ 使得\\
+$$B = O A O^{T} = \left(\begin{array}{cccccc}
+	\left(\begin{array}{cc} a_{1} & b_{1} \\ -b_{1} & a_{1} \end{array}\right) & & & & & \\
+	& \ddots & & & & \\
+	& & \left(\begin{array}{cc} a_{k} & b_{k} \\ -b_{k} & a_{k} \end{array}\right) & & & \\
+	& & & \lambda_{2k+1} & & \\
+	& & & & \ddots & \\
+	& & & & & \lambda_{n}
+\end{array}\right)$$
+我们想要的是对角阵而不是准对角阵，因为我们想使用一个引理\\
+引理：\\
+若 $O$ 为正交阵，$A$ 为对角阵 $\operatorname{diag}\left(\lambda_{1}, \cdots, \lambda_{n}\right), B=O A O^{T}$ ，那么对任意多项式 $f(x)$ 有
+$$f(B)=f\left(O A O^{T}\right)=O f(A) O^{T}=O \operatorname{diag}\left(f\left(\lambda_{1}\right), \cdots, f\left(\lambda_{n}\right)\right) O^{T}$$
+证：注意正交阵性质及对角阵性质立得\\
+
+
+\noindent 又注意到\\
+$$B+B^{T}=\operatorname{diag}\left(2 a_{1} I_{n_1}, \cdots, 2 a_{k} I_{n_k}, 2 \lambda_{2 k+1}, \cdots, 2 \lambda_{n}\right)$$
+为对角阵\\
+这既符合了引理的形式，又因为加上的是 $B$（可以看作 $B$ 自己的一个多项式），不会干扰最终的结论\\
+另外，我们不妨设 $a_{1}, \ldots \ldots, a_{k}, \lambda_{2 k+1}, \cdots \cdots, \lambda_{n}$ 都两两不同（如果相同我们把他们合成一个大对角块即可）\\
+并记为 $B+B^{T}=\operatorname{diag}\left(A_{1}, \cdots, A_{\mathrm{m}}\right)$（这里角标不同是因为有二阶及以上的块）\\
+又 $A_{1}, \cdots, A_{\mathrm{m}}$ 特征值两两不同，那么他们的特征多项式两两互素，考虑中国剩余定理\\
+我们有同余方程\\
+$$
+\left\{
+\begin{array}{l}
+	f(x) \equiv 2 a_{1} \bmod \varphi_{A_{1}}(x) \\
+		\cdots  \\
+	f(x) \equiv 2 a_{k} \bmod \varphi_{A_{k}}(x) \\
+	f(x) \equiv 2 \lambda_{2k+1} \bmod \varphi_{A_{k+1}}(x) \\
+	\cdots  \\
+	f(x) \equiv 2 \lambda_{n} \bmod \varphi_{A_{m}}(x)
+\end{array}
+\right.
+$$
+此方程必有解 $f(x)$ ，并注意到 $\varphi_{A k}(x)$ 零化 $A_{\mathrm{k}}$ ，那么 $f\left(A_{\mathrm{k}}\right)=2 a_{k} I_{n k}$（或者 $2 \lambda_{\mathrm{k}}$ ）\\
+也就是存在 $f(x) $使得$f(B)=B+B^{T}$\\
+则 $B^{T}=f(B)-B \triangleq g(B)$\\
+$g(x)$ 就满足要求\\
+
+
+\noindent 六。设 $A$ 为 n 阶可逆实对称阵\\
+（1）若 $S$ 为 n 阶实正定对称阵，求证：$A S$ 的所有特征值都是实数\\
+（2）设 $a$ 为 n 维实单位列向量，$B=A+a a^{T} A^{-1}$ ，求证：$B$ 的所有特征值都是实数\\
+证（1）证一：（古法硬倒）\\
+设 $A S$ 有特征值 $\lambda$\\
+则 
+\begin{gather}
+	A S x=\lambda x
+\end{gather}
+注意 $\mathrm{A}, \mathrm{S}$ 对称且实，取共轭转置
+\begin{gather}
+	x^{*} S A=\bar{\lambda} x^{*}
+\end{gather} 
+式(1)左乘 $x^{*} S$ ，有 
+$$x^{*} S A S x=\lambda x^{*} S x$$
+式(2)右乘 $S x$ ，有 
+$$x^{*} S A S x=\bar{\lambda} x^{*} S x$$
+两式相减：
+$$(\lambda-\bar{\lambda}) x^{*} S x=0$$
+注意到 $S$ 可以视为复正定Hermite阵\\
+$$\forall x \neq 0\quad \text{有}\quad x^{*} S x>0 \Rightarrow \lambda=\bar{\lambda}$$ 
+即特征值为实数\\
+证二：\\
+先证明引理：\\
+$A B$ 与 $B A$ 的非零特征值相同\\
+证：$\left|\lambda I_{n}-B A\right|=\lambda^{n-m}\left|\lambda I_{m}-A B\right|$ 利用这个经典行列式结论立得，在此不详细证明了\\
+注意到 $S$ 有唯一的平方根，记为 $B$ ，那么 $B$ 为正定对称阵\\
+则 $A S=A B^{2}$ ，而 $A B^{2}$ 与 $B A B$ 有相同的非零特征值，另一方面 $B A B$ 为对称阵，特征值都是实数\\
+这就说明了 $A S$ 的所有特征值都是实数\\
+（2）
+$$B=A\left(I+A^{-1} a a^{T} A^{-1}\right)$$
+注意到我们在（1）中证明完毕的结论，只需要证 $I+A^{-1} a a^{T} A^{-1}$ 正定即可\\
+$\left(A^{-1}\right)^{T} a a^{T}\left(A^{-1}\right)=A^{-1} a a^{T} A^{-1}$ 与 $a a^{T}$ 相合，又 $a a^{T}$ 为半正定对称阵，那么 $A^{-1} a a^{T} A^{-1}$ 也为半正定阵，特征值大于等于 0\\
+所以 $I+A^{-1} a a^{T} A^{-1}$ 特征值大于等于 1 ，为正定阵\\
+证毕
+	
+
+
+\end{document}

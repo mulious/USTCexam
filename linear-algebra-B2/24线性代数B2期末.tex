@@ -1,0 +1,328 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib,float,tikz}
+\usepackage{caption,subcaption,calligra}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{bm}
+
+\title{24线性代数B2期末}
+\author{\calligra{NULIOUS}}
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+
+\begin{document}
+\maketitle
+\noindent 1．简述实对称正定矩阵 $A$ 的 5 个等价条件\\
+（1）正惯性指数等于其阶数\\
+（2） $0 \neq x \in \mathbb{R}^n, x^T A x>0$\\
+（3）$A$ 的特征值均为正\\
+（4）存在实对称正定方阵 $B$ ，使得 $A=B^2$\\
+（5）存在可逆方阵 $P$ ，使得 $A=P^T P$\\
+（6）$A$ 的所有主子式为正\\
+（7）$A$ 的所有顺序主子式为正\\
+	
+		
+\noindent 2.证明酉空间的极化恒等式 (10分)
+\[
+		(\beta, \alpha) = \frac{1}{4} \left(|\alpha + \beta|^2 - |\alpha - \beta|^2 + i|\alpha + i\beta|^2 - i|\alpha - i\beta|^2\right)
+\]
+这里内积定义为$(\alpha, \beta)=\alpha^* G \beta$，$G$为复正定阵。\\
+证：等式右边一一展开即可，注意共轭线性性即可。\\
+对任意$\alpha, \beta, \gamma \in V$及$\lambda, \mu \in \mathbb{C}$有
+		\[
+		(\lambda \alpha + \mu \beta, \gamma) = \bar{\lambda}(\alpha, \gamma) + \bar{\mu}(\beta, \gamma), \quad (\gamma, \lambda \alpha + \mu \beta) = \lambda (\gamma, \alpha) + \mu (\gamma, \beta)
+		\]
+		有
+		\[
+		|\alpha + \beta|^2 = (\alpha, \alpha) + (\alpha, \beta) + (\beta, \alpha) + (\beta, \beta)
+		\]
+		\[
+		|\alpha - \beta|^2 = (\alpha, \alpha) + (\beta, \beta) - (\alpha, \beta) - (\beta, \alpha)
+		\]
+		\[
+		|\alpha + i\beta|^2 = (\alpha, \alpha) + (\beta, \beta) + i(\alpha, \beta) - i(\beta, \alpha)
+		\]
+		\[
+		|\alpha - i\beta|^2 = (\alpha, \alpha) + (\beta, \beta) - i(\alpha, \beta) + i(\beta, \alpha)
+		\]
+		逐个代入即得结果。\\
+		
+		
+\noindent 3.计算（10分）
+		\[
+		A = \begin{pmatrix} 
+			1 & 3 \\ 
+			2 & 4 \\ 
+			0 & 0 
+		\end{pmatrix}
+		\]
+		的奇异值分解的具体形式。\\
+解：\\
+先给出一般化方法：\\
+		对于一个秩为$r$的矩阵$A_{m \times n}$，必存在$m \times m$的正交矩阵$U_{m \times m}$，$n \times n$的正交矩阵$V_{n \times n}$，$m \times n$的矩阵$\Sigma_{m \times n}$，使得
+		\[
+		A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T = U_{m \times m} 
+		\begin{pmatrix} 
+			D_{r \times r} & O \\ 
+			O & O 
+		\end{pmatrix}_{m \times n} 
+		V_{n \times n}^T
+		\]
+		其中，
+		\[
+		D_{r \times r} = \begin{pmatrix} 
+			\sqrt{\lambda_1} & & \\ 
+			& \sqrt{\lambda_2} & \\ 
+			& & \ddots \\ 
+			& & & \sqrt{\lambda_r} 
+		\end{pmatrix}_{r \times r}
+		\]
+		$\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_r > 0$为$A^T A$的$r$个非零特征值（从大到小排列）\\
+		第一步：求出$A_{m \times n}^T A_{m \times n}$（一般我们先求阶数小的）的$n$个特征值
+		$
+		\lambda_1, \lambda_2, \cdots, \lambda_r, \lambda_{r+1} = 0, \cdots, \lambda_n = 0 $（并按照从大到小排列）和对应的\textbf{标准正交}的特征向量 $v_1, v_2, \cdots, v_r, v_{r+1}, \cdots, v_n。
+		$\\
+		第二步：取标准正交的特征向量构成正交矩阵
+		\[
+		V_{n \times n} = (v_1, v_2, \cdots, v_r, v_{r+1}, \cdots, v_n)_{n \times n}
+		\]
+		取前$r$个奇异值，即非零特征值\textbf{开根号}$\sqrt{\lambda_1}, \sqrt{\lambda_2}, \cdots, \sqrt{\lambda_r}$，构成对角矩阵
+		\[
+		D_{r \times r} = 
+		\begin{pmatrix}
+			\sqrt{\lambda_1} & & \\
+			& \sqrt{\lambda_2} & \\
+			& & \ddots \\
+			& & & \sqrt{\lambda_r}
+		\end{pmatrix}_{r \times r}
+		\]
+		添加额外的0组成$m \times n$的矩阵
+		\[
+		\Sigma_{m \times n} = 
+		\begin{pmatrix}
+			D_{r \times r} & O \\
+			O & O
+		\end{pmatrix}_{m \times n}
+		=
+		\begin{pmatrix}
+			\sqrt{\lambda_1} & & & &O\\
+			& \sqrt{\lambda_2} & & & \\
+			& & \ddots & & \\
+			& & & \sqrt{\lambda_r} & \\
+			O& & & &O
+		\end{pmatrix}_{m \times n}
+		\]
+		第三步：构成前$r$个标准正交向量$u_1, u_2, \cdots, u_r$，其中$\bm{u_i = \frac{1}{\sqrt{\lambda_i}} A v_i}, i = 1, 2, \cdots, r$\\
+		第四步：按照标准正交基扩充的方法，将$u_1, u_2, \cdots, u_r$扩充为$m$维向量空间$\mathbb{R}^m$的标准正交基$u_1, u_2, \cdots, u_r, b_1, \cdots, b_{m-r}$，组成正交矩阵
+		\[
+		U_{m \times m} = (u_1, u_2, \cdots, u_r, b_1, \cdots, b_{m-r})_{m \times m}
+		\]
+		最后注意转置$V_{n \times n}^T$即可。\\
+		对本题我们有
+		\[
+		A^TA = \begin{pmatrix} 5 & 11 \\ 11 & 25 \end{pmatrix}
+		\]
+		有特征值$15 \pm \sqrt{221}$，那么奇异值为$\sqrt{15 \pm \sqrt{221}}$。
+		\[
+		\lambda = 15 + \sqrt{221} \quad \text{有特征向量} \quad \begin{pmatrix} -10 + \sqrt{221} \\ 11 \end{pmatrix}
+		\]
+		\[
+		\lambda = 15 - \sqrt{221} \quad \text{有特征向量} \quad \begin{pmatrix} -10 - \sqrt{221} \\ 11 \end{pmatrix}
+		\]
+		注意到对称阵的不同特征值对应的特征向量正交，我们就得到了
+		\[
+		V = \begin{pmatrix} 
+			
+			\frac{-10+\sqrt{211}}{\sqrt{442} - 20 \sqrt{221}} & \frac{-10-\sqrt{211}}{\sqrt{442} + 20 \sqrt{221}} \\ 
+			\frac{11}{\sqrt{442} - 20 \sqrt{221}} & \frac{11}{\sqrt{442} + 20 \sqrt{221}} 
+		\end{pmatrix}
+		\]
+		并有
+		\[
+		\Sigma = \begin{pmatrix} 
+			\sqrt{15 + \sqrt{221}} & 0 \\ 
+			0 & \sqrt{15 - \sqrt{221}} \\ 
+			0 & 0 
+		\end{pmatrix}
+		\]
+		进而
+		\[
+		U=\left(\begin{array}{ccc}
+			\frac{-5+\sqrt{221}}{\sqrt{442-10 \sqrt{221}}} & \frac{-5-\sqrt{221}}{\sqrt{442+10 \sqrt{221}}} & 0 \\
+			\frac{14}{\sqrt{442-10 \sqrt{221}}} & \frac{14}{\sqrt{442+10 \sqrt{221}}} & 0 \\
+			0 & 0 & 1
+		\end{array}\right)
+		\]\\
+		
+		
+\noindent 4.$A$为一个$n \times n$的矩阵，证明$\dim F[A] = n$当且仅当最小多项式等于特征多项式。\\
+证：书上定理3.5.10：向量组$\{I_n, A, \cdots, A^{d-1}\}$是线性空间$F[A]$的一组基。
+		
+		（证：只需证明$\{I_n, A, \cdots, A^{k-1}\}$线性无关即可。否则，设$\lambda_i$不全为0使得$\sum_{i=0}^{k-1} \lambda_i A^i = 0$。令$g(x) = \sum_{i=0}^{k-1} \lambda_i x^i$，则$g(x)$是次数$\leq k - 1$的多项式。对于任意$f(x) \in F[x]$，根据多项式的带余除法，$f(x) = q(x) g(x) + r(x)$，其中$\deg(r) < \deg(g) \leq k - 1$。故$f(A) = q(A) g(A) + r(A) = r(A)$。这说明$f(A)$都是$\{I_n, \cdots, A^{k-2}\}$的线性组合，与$\dim F[A] = k$矛盾。）
+		
+		本题是这个定理的直接推论。有$\dim F[A] = \deg d_A(x)$，再由Cayley-Hamilton定理$d_A(x) |\varphi_A(x)$以及$\deg \varphi_A(x) = n$，且$d_A(x), \varphi_A(x)$均为首一，就得到本题结果。\\
+		
+\noindent 5. 设矩阵$K = \begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix}$，求$K^{1958}$和$K^{2025}$（需要化简）（10分）\\
+解一：注意到$K = \begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix} = 2^{\frac{1}{2}} \begin{pmatrix} \cos{\frac{\pi}{4}} & \sin{\frac{\pi}{4}} \\ -\sin{\frac{\pi}{4}} & \cos{\frac{\pi}{4}} \end{pmatrix}$为旋转变换对应方阵的常数倍\\
+则
+		\[
+ K^n = 2^{\frac{n}{2}} \begin{pmatrix} \cos{\frac{n\pi}{4}} & \sin{\frac{n\pi}{4}} \\ -\sin{\frac{n\pi}{4}} & \cos{\frac{n\pi}{4}} \end{pmatrix}
+		\]
+进而
+		\[
+	 K^{1958} = 2^{979} \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}, \quad K^{2025} = 2^{1012} \begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix}
+		\]
+解二：考虑Jordan标准型
+		\[
+		\lambda = 1 + i \quad \text{有特征向量} \quad \begin{pmatrix} -i \\ 1 \end{pmatrix}
+		\]
+		\[
+		\lambda = 1 - i \quad \text{有特征向量} \quad \begin{pmatrix} i \\ 1 \end{pmatrix}
+		\]
+		那么$P^{-1}KP = J$其中
+		\[
+		J = \begin{pmatrix} 1 + i & 0 \\ 0 & 1 - i \end{pmatrix}, \quad P = \begin{pmatrix} -i & i \\ 1 & 1 \end{pmatrix}, \quad P^{-1} = \begin{pmatrix} \frac{i}{2} & \frac{1}{2} \\ -\frac{i}{2} & \frac{1}{2} \end{pmatrix}
+		\]
+		处理$J$的$n$次幂我们有两种方法：
+		\begin{itemize}
+			\item 法一：$1 + i = \sqrt{2} e^{\frac{i\pi}{4}}$，$1 - i = \sqrt{2} e^{i \left( -\frac{\pi}{4} \right)}$，那么$(1 + i)^n = 2^{\frac{n}{2}}e^{in\frac{\pi}{4}}$，$(1 - i)^n = 2^{\frac{n}{2}}e^{in\left( -\frac{\pi}{4} \right)}$
+			\item 法二：$(1 + i)^2 = 2i$，$(1 - i)^2 = -2i$，$i^4 = 1$
+		\end{itemize}
+同样得到$K^{1958} = 2^{979} \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$与$K^{2025} = 2^{1012} \begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix}$\\
+	
+	
+	
+\noindent 6.判断正误，错误的举出反例，正确的证明之（10分）\\
+（1）$A^2$规范，$A$规范。\\
+（2）$A$与$AA^T$交换，$A$规范。\\
+解：\\
+（1）错误，反例$$A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\quad A^2 = 0$$\\
+（2） 正确\\
+证一：设$B = AA^T - A^TA$。
+\[
+\begin{aligned}
+	\operatorname{tr}\left(B B^T\right) & =\operatorname{tr}\left(\left(A A^T-A^T A\right)^2\right) \\
+	& =\operatorname{tr}\left(\underline{A A^T A A^T}-A A^T A^T A-\underline{A^T A A A^T}+A^T A A^T A\right) \\
+	& =\operatorname{tr}\left(A^T A A^T A-A A^T A^T A\right) \\
+	& =\operatorname{tr}\left(A^T A^T A A-A A^T A^T A\right) \\
+	& =0
+\end{aligned}
+\]
+因为$B$是实矩阵，所以$B = O = AA^T - A^TA$，即$A$是规范阵。\\
+证二：若$A$可逆，结论自然成立\\
+当$A$不可逆时，存在正交阵$P$使得
+$$P^{-1}A^TAP = D = \text{diag}(D_1, 0)$$
+其中$D_1 = \text{diag}(d_1, \ldots, d_n)$可逆\\
+令
+$$B = P^{-1}AP = P^TAP$$
+那么$B^TB = D$且$B$与$B^TB$可交换\\
+分块有
+$$B = \begin{pmatrix} B_{11} & B_{12} \\ B_{21} & B_{22} \end{pmatrix}$$
+则
+$$BD = \begin{pmatrix} B_{11}D_1 & 0 \\ B_{21}D_1 & 0 \end{pmatrix} = DB = \begin{pmatrix} D_1B_{11} & D_1B_{12} \\ 0 & 0 \end{pmatrix}$$
+$D_1$可逆$\Rightarrow B_{12} = B_{21} = 0$\\
+又
+$$B^TB = D = \text{diag}(B_{11}^TB_{11}, B_{22}^TB_{22}) = \text{diag}(D_1, 0)$$
+且$D_1$可逆，就有$ B_{22} = 0$，$B_{11}$可逆；$B_1$与$B_1^TB_1$可交换，再由可逆情况
+$$ B^TB = BB^T \Rightarrow A^TA = AA^T$$\\
+		
+		
+		
+		
+\noindent 7.计算$A = \text{diag}(A_1, A_2)$的最小多项式，Jordan标准型，实相似标准型。（20分）\\
+其中
+		\[
+		A_1 = \begin{pmatrix} 
+			1 & 0 & 1 & 0 \\ 
+			0 & 1 & 0 & 1 \\ 
+			0 & 0 & 1 & 0 \\ 
+			0 & 0 & 0 & 1 
+		\end{pmatrix}, \quad 
+		A_2 = \begin{pmatrix} 
+			0 & 0 & 0 & 1 \\ 
+			1 & 0 & 0 & 0 \\ 
+			0 & 1 & 0 & 0 \\ 
+			0 & 0 & 1 & 0 
+		\end{pmatrix}
+		\]
+解：先说明要用的定理：\\
+（1）准对角阵的最小多项式是对角块的最小多项式的最小公倍式\\
+（2）特征方阵的初等因子与Jordan块是一一对应的，初等因子$(x - \lambda)^n$对应Jordan块$J_n(\lambda)$\\
+（3）准对角阵的初等因子是对角块的初等因子的并\\
+我们只需要分别求出$A_1, A_2$的最小多项式与Jordan标准型即可。\\
+先注意到$A_2$是友阵，那么
+$$d_{A_2}(x) = x^4 - 1 = (x + 1)(x - 1)(x^2 + 1)$$
+且$A_2$的Jordan标准型为
+$$J_2 = \text{diag}(-1, 1, i, -i)$$
+注意到$A_1$的Jordan标准型比特征方阵的初等因子更好求，我们求其Jordan标准型\\
+$A_1$只有特征值1，且
+$$r(A_1 - I) = 2\quad r(A_1 - I)^2 = 0$$
+其Jordan标准型为
+$$J_1 = \text{diag}(J_2(1), J_2(1))$$
+那么就有
+$$d_{A_1}(x) = (x - 1)^2$$
+最后得到结果：
+\begin{itemize}
+			\item 最小多项式为$$d_A(x) = (x - 1)^2(x + 1)(x^2 + 1)$$
+			\item Jordan标准型为$$J = \text{diag}(J_2(1), J_2(1), -1, 1, -i, i)$$
+			\item 实相似标准型只需要把虚数部分替换即可，为$$\text{diag}\left(J_2(1), J_2(1), -1, 1, \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\right)$$
+\end{itemize}
+
+
+
+
+\noindent 8.在空间$V = \mathbb{R}^{n \times n}$的线性空间上的线性函数$f(X)$，证明对于固定的$f(X)$，有唯一的矩阵$B$满足$f(X) = \mathrm{Tr}(XB^T)$。（10分）\\
+证：\\
+存在性：$\mathbb{R}^{n \times n}$有一组基$M = \{ E_{ij} | 1 \leq i, j \leq n \}$。设$X = \begin{pmatrix} a_{ij} \end{pmatrix}_{n \times n}$
+			\[
+			f(X) = f(a_{11}E_{11} + \cdots + a_{nn}E_{nn}) = a_{11}f(E_{11}) + \cdots + a_{nn}f(E_{nn})
+			\]
+			设$B = \begin{pmatrix} b_{ij} \end{pmatrix}_{n \times n}$
+			\[
+			\text{Tr}(XB^T) = a_{11}b_{11} + a_{12}b_{12} + \cdots + a_{nn}b_{nn}
+			\]
+			令$b_{ij} = f(E_{ij})$即可\\
+唯一性：若存在$B_1, B_2$使得$f(X) = \text{Tr}(XB_1^T) = \text{Tr}(XB_2^T)$，则
+			\[
+			\text{Tr}(X(B_1 - B_2)^T) = 0
+			\]
+			取$X = B_1 - B_2 = (x_{ij})_{n \times n}$
+			\[
+			\text{Tr}((B_1 - B_2)(B_1 - B_2)^T) = \sum_{1 \leq i,j \leq n} x_{ij}^2 = 0
+			\]
+则
+			\[
+			B_1 - B_2 = 0\quad  B_1 = B_2
+			\]\\
+矛盾\\
+
+
+		
+\noindent 9.正交阵$O = \begin{pmatrix} A & B \\ C & D \end{pmatrix}$，$A$为方阵，那么$D$也为方阵，证明$\det(A)^2 = \det(D)^2$。\\
+证：$OO^T = I$即
+$$\begin{pmatrix} A & B \\ C & D \end{pmatrix} \begin{pmatrix} A^T & C^T \\ B^T & D^T \end{pmatrix} = \begin{pmatrix} I_n & 0 \\ 0 & I_m \end{pmatrix}$$
+有$AA^T + BB^T = I_n$，$D^TD + B^TB = I_m$\\
+证一：
+		\[
+		\begin{pmatrix} A & B \\ C & D \end{pmatrix} \begin{pmatrix} A^T & 0 \\ B^T & I_m \end{pmatrix} = \begin{pmatrix} I_n & B \\ 0 & D \end{pmatrix}
+		\]
+		取行列式
+		$$\det(O)\det(A) = \det(D)$$
+		又$\det(O)^2 = 1$\\
+		两边平方即
+		$$\Rightarrow \det(A)^2 = \det(D)^2$$
+证二：
+		\[
+		\det(A)^2 = \det(AA^T) = \det(I_n - BB^T) = \det(I_m - B^TB) = \det(D^TD) = \det(D)^2
+		\]
+		这里利用了结论$|\lambda I_n - BA| = \lambda^{n-m}|\lambda I_m - AB|$
+
+	
+\end{document}
