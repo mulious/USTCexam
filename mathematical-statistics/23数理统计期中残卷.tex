@@ -1,0 +1,134 @@
+\documentclass[UTF8]{ctexart}
+%\documentclass{article}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib, float,tikz,graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{calligra}
+
+\title{23数理统计期中残卷}
+\author{\textcalligra{NULIOUS}}
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\begin{document}
+	
+\maketitle
+\noindent 1.设从总体
+$$
+\begin{tabular}{c|cccc}
+	$X$ & 0 & 1 & 2 & 3 \\
+	\hline $\mathbb{P}$ & $3 \theta / 4$ & $\theta / 4$ & $2 \theta$ & $1-3 \theta$
+\end{tabular}
+$$
+（其中 $0<\theta<1 / 3$ ）中抽取的一个简单样本 $X_1, \ldots, X_n$ ，试\\
+（1）将样本分布表示为指数族自然形式，指出自然参数及自然参数空间。\\
+（2）求 $\theta$ 的最大似然估计量 $\hat{\theta}$ ，其是否为一致最小方差无偏估计？\\
+（3）证明 $\hat{\theta}$ 具有相合性和渐近正态性。\\
+解：（1）样本联合密度为
+\[
+f\left(x_1 \cdots, x_n ; \theta\right)=\left(\frac{3 \theta}{4}\right)^{n_0}\left(\frac{\theta}{4}\right)^{n_1} \cdot(2 \theta)^{n_2} \cdot(1-3 \theta)^{n_3}
+\]
+这里$n_i$为$n$个样本中取值为$i$的个数，把样本联合密度写成指数族的形式为
+\[
+f\left(x_1, \cdots, x_n ; \theta\right)=\left(\frac{3}{4}\right)^{n_0}\left(\frac{1}{4}\right)^{n_1} \cdot 2^{n_2} \cdot e^{\left(n-n_3\right) \ln \theta+n_3 \ln (1-3 \theta)}
+\]
+其中
+\[
+\begin{aligned}
+	& h(\boldsymbol{X})=\left(\frac{3}{4}\right)^{n_0}\left(\frac{1}{4}\right)^{n_1} 2^{n_2} \\
+	& C(\theta)=e^{n \ln \theta}
+\end{aligned}
+\]
+自然参数为$\varphi=\ln \frac{1-3\theta}{\theta}$\\
+又$0<\theta<\frac{1}{3}$，则自然参数空间为$\mathbb{R}$\\
+由因子分解定理和自然参数空间有内点，充分完全统计量为$T(\boldsymbol{X})=n_3$\\
+（2）
+\[
+\ln f\left(x_1, \cdots, x_n ; \theta\right) \propto \left(n-n_3\right) \ln \theta+n_3 \ln (1-3 \theta)
+\]
+令
+\[
+\frac{\partial \ln f}{\partial \theta}=\frac{n-n_3}{\theta}-\frac{3 n_3}{1-3 \theta}=0
+\]
+解得
+\[
+\hat{\theta}_{MLE}=\frac{n-n_3}{3n}
+\]
+又$n_3\sim \mathrm{B}(n,1-3\theta)$
+\[
+\mathbb{E}[n_3]=n(1-3\theta) \quad \mathbb{E}\left[\hat{\theta}_{MLE} \right] =\theta
+\]
+也就是MLE为无偏估计量，且它是充分完全统计量的函数，则其为UMVUE\\
+（3）相合性：\\
+强相合：注意
+\[
+n_3\sim \mathrm{B}(n,1-3\theta)
+\]
+为$n$个$\mathrm{B}(1,1-3\theta)$的独立和\\
+由SLLN
+\[
+\frac{n_3}{n} \xrightarrow{a.s.}1-3\theta
+\]
+则
+\[
+\frac{n-n_3}{3n} \xrightarrow{a.s.}\theta
+\]
+即强相合\\
+弱相合：\\
+i.直接由强相合得到\\
+ii.由Chebyshev不等式
+\[
+P\left(\mid \hat{\theta}_{MLE}-\theta \mid \ge \epsilon \right)\le \frac{\operatorname{Var}\left( \hat{\theta}_{MLE}\right) }{\epsilon^2} 
+\]
+另一方面
+\[
+\begin{aligned}
+	\operatorname{Var}(\hat{\theta}_{MLE})&=\operatorname{Var}\left(\frac{n-n_3}{3 n}\right)  &=\operatorname{Var}\left(\frac{n_3}{3 n}\right)\\
+	&=\frac{1}{9 n^2}\operatorname{Var}\left(n_3\right)&=\frac{\theta(1-3 \theta)}{3 n}
+\end{aligned}
+\]
+则
+\[
+\lim _{n \rightarrow \infty} P(|\hat{\theta}_{MLE}-\theta| \geq \varepsilon) \leqslant \frac{\theta(1-3 \theta)}{3 n \varepsilon^2} \rightarrow 0
+\]
+就说明了弱收敛\\
+渐进正态性：\\
+i.MLE的渐近正态性
+\[
+\sqrt{n}\left(\hat{\theta}_{MLE}-\theta \right)\xrightarrow{D} N\left(0,\frac{1}{I(\theta)} \right)  
+\]
+这里总体（单个样本）的Fisher信息量为
+\[
+I(\theta)=-\mathbb{E}[\frac{\partial^2 \ln f(x, \theta)}{\partial \theta^2}]
+\]
+其中$f(x, \theta)$为总体的密度
+\[
+\mathbb{E}[\frac{\partial^2 \ln f(x, \theta)}{\partial \theta^2}]=\ln ^{\prime \prime} f(x=0, \theta) P(X=0)+\cdots+\ln ^{\prime \prime} f(x=3, \theta) P(X=3)
+\]
+得到
+\[
+I(\theta)=\frac{3}{\theta}+\frac{9}{1-3\theta}
+\]
+则
+\[
+\sqrt{n}\left(\hat{\theta}_{MLE}-\theta \right)\xrightarrow{D} N\left(0,\frac{\theta(1-3\theta)}{3} \right) 
+\]
+ii.CLT
+\[
+\sqrt{n}\left(\frac{n_3}{n}-(1-3 \theta)\right) \xrightarrow{D} N(0,(1-3 \theta) 3 \theta) 
+\]
+则
+\[
+\sqrt{n}\left(\hat{\theta}_{MLE}-\theta \right)\xrightarrow{D} N\left(0,\frac{\theta(1-3\theta)}{3} \right) 
+\]
+
+
+\noindent 附表：$u_{0.025}=1.960, u_{0.05}=1.645, \Phi(1.36)=0.9131, \Phi(1.4)=0.9192$.
+
+\end{document}
