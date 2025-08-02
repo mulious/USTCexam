@@ -14,4 +14,5 @@ linear-algebra-B2  线性代数B2
 
 stochastic-processes  实用随机过程
 
+mathematical-statistics  数理统计（管院）
 
