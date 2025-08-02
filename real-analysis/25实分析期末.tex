@@ -1,0 +1,53 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib,float,tikz}
+\usepackage{caption,subcaption,calligra}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{bm}
+
+\title{25实分析期末}
+\author{}
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\begin{document}
+\maketitle
+\noindent 一.\\
+1. 简述Lebesgue外测度 \( m_*\) 的定义\\
+2.用定义证明其次可数可加性\\
+3.求证：对于满足 \( d(E_1, E_2) > 0 \) 的两个集合 \( E_1 \) 和 \( E_2 \)，有
+$$ m_*(E_1 \cup E_2) = m_*(E_1) + m_*(E_2)$$
+4.若条件改为 \( E_1 \cap E_2 \neq \emptyset \)，上述结论是否仍然成立？\\
+二.\\
+定义在 $[0,1]$ 上的函数列 $\{f_n\}$ 和 $f$，求证
+\[
+f_n \xrightarrow{m} f \quad \Longleftrightarrow \lim _{n \rightarrow \infty} \int_0^1 \frac{\left|f_n-f\right|}{1+\left|f_n-f\right|} d x=0
+\]
+三.\\
+求解
+$$\lim _{n \rightarrow \infty} \int_0^{\infty} \frac{n \sin \left(\frac{x}{n}\right)}{x\left(1+x^2\right)} d x$$
+写出用到的定理的名字\\
+四.\\
+1.是否存在一个处处不连续的函数，它几乎处处等于一个连续函数\\
+2.$L^1$收敛是否存在子列几乎处处收敛\\
+3.$L^1$收敛是否能推出几乎处处收敛\\
+五.\\
+1.设$f(x)=3 x-x^3 \text {, 求  } V_{-2}^2(f)$\\
+2. 设 $f \in BV[a, b]$\\
+求证：存在 $g \in AC[a, b]$ 和 $h \in BV[a, b]$，满足$h'(x) = 0 \quad \text{a.e.}\quad \text{on} \quad[a, b], \quad \text{s.t.} \quad f = g - h$\\
+六.\\
+1.简述$f \in AC[a, b]$的定义\\
+2.设 $$f(x)=\left\{\begin{array}{cc}x^\alpha, & x \in(0,1] \\ 0, & x=0\end{array}\right.$$
+其中 $\alpha \in R$ ，讨论 $f$ 是否绝对连续\\
+3.用绝对连续定义和$Vitali$覆盖引理证明：若$f \in AC[a, b]$，且$f'(x) = 0 \quad \text{a.e.}$，则$f$为常数\\
+七.\\
+下面均考虑抽象测度，本题不需要证明所写的结论\\
+1.简述代数，预测度的定义，并说明如何从预测度构造外测度\\
+2.简述怎么从预测度构造测度空间\\
+\end{document} 
