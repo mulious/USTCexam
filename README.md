@@ -12,4 +12,6 @@ differential-equations  微分方程概论
 
 linear-algebra-B2  线性代数B2
 
+stochastic-processes  实用随机过程
+
 
