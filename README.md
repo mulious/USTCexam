@@ -10,6 +10,6 @@ USTC管统学习资料
 
 differential-equations  微分方程概论
 
-linear-algebra  线性代数B2
+linear-algebra-B2  线性代数B2
 
 
