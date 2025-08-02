@@ -1,0 +1,303 @@
+\documentclass[UTF8]{ctexart}
+%\documentclass{article}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib, float,tikz,graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{calligra} % 添加书法字体包
+
+\title{22实用随机过程期末}
+\author{} % 改用书法体
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\begin{document}
+
+\maketitle
+
+\noindent 1．（每小题 3 分，总 18 分）判断题\\
+（1）一个时间可逆的连续时间马氏链的嵌入链也是时间可逆的\\
+答案：正确\\
+但是嵌入链可逆不一定可以推出连续Markov链可逆\\
+
+
+\noindent （2）设 $i \leftrightarrow j, j$ 的周期为 $d>1$ ，则 $\lim _{n \rightarrow \infty} P_{i j}^{n d}=d / \mu_{j j}$ ，其中 $\mu_{j j}$ 是马氏链相邻两次访问状态 $j$ 的期望间隔时间\\
+答案：错误\\
+反例：考虑一个连续Markov链，其只有两个状态${1,2}$，且状态$1$只能转移到$2$，$2$只能转移到$1$，则这两个状态的周期为$2$，但是$\lim_{n \rightarrow \infty}P_{12}^{n d}=0$\\
+成立的结论应该是： $j$ 的周期为 $d>1$ ，则 $\lim _{n \rightarrow \infty} P_{j j}^{n d}=d / \mu_{j j}$ ，其中 $\mu_{j j}$ 是马氏链相邻两次访问状态 $j$ 的期望间隔时间\\
+
+
+\noindent （3）设 $S$ 和 $T$ 是一个随机变量序列的停时，则 $\min \{S, T\}$ 也是一个停时\\
+答案：正确\\
+$S,T$均由随机变量序列$Z_1,...,Z_n$决定且$P(S<\infty)=1 \quad P(T<\infty)=1$\\
+那么$\min \{S,T\}$由$Z_1,...,Z_n$决定且$P(\min \{S,T\}<\infty)=1$，这就说明其为停时\\
+
+
+\noindent （4）半马氏过程是一类特殊的连续时间马氏过程\\
+答案：错误\\
+连续时间马氏过程是一类特殊的半马氏过程\\
+
+
+\noindent （5）设 $\left\{Z_{n}, n \geq 1\right\}$ 为二阶矩存在有限的鞅，定义 $X_{k}=Z_{k}-Z_{k-1}, k \geq 1$ ，且约定 $Z_{0}=0$ ，则 $\operatorname{Var}\left(Z_{n}\right)=\sum_{k=1}^{n} \operatorname{Var}\left(X_{k}\right)$ \\
+答案：正确\\
+这道题是书上习题6.2\\
+\[
+\operatorname{Var}\left(Z_n \right)=\operatorname{Var}(\sum_{i=1}^{n} X_i)=\sum_{i=1}^{n} \operatorname{Var}(X_i)+2\sum\limits_{1 \le i <j \le n }^{} \operatorname{Cov}(X_i,X_j) 
+\]
+所以只需要证明$\sum\limits_{1 \le i <j \le n }^{} \operatorname{Cov}(X_i,X_j)=0 $即可\\
+先证明一个引理：$\mathbb{E}\left[Z_n \mid Z_1, \ldots, Z_k\right] =Z_k$\\
+$$
+\begin{aligned}
+	\mathbb{E}\left[Z_n \mid Z_1, \ldots, Z_k\right] & =\mathbb{E}\left[\mathbb{E}\left[Z_n \mid Z_1, \ldots, Z_{n-1}\right] \mid Z_1, \ldots, Z_k\right] \\
+	& =\mathbb{E}\left[Z_{n-1} \mid Z_1, \ldots, Z_k\right] \\
+	& =\mathbb{E}\left[Z_t \mid Z_1, \ldots, Z_k\right] \\
+	& =Z_k
+\end{aligned}
+$$
+这里用到了双重条件期望公式：$\mathbb{E}[X|U]=\mathbb{E}[\mathbb{E}[X|U,V]|U]$\\
+ 即证对$\forall i<j, \operatorname{Cov}\left(X_i, X_j\right)=0 $事实上，由引理知\\
+$$
+\begin{aligned}
+	&\begin{aligned}
+		\mathbb{E}\left[X_i\right] & =\mathbb{E}\left[Z_i\right]-\mathbb{E}\left[Z_{i-1}\right]=0, \\
+		\operatorname{Cov}\left(X_i, X_j\right) & =\mathbb{E}\left[X_i X_j\right] \\
+		& =\mathbb{E}\left[\left(Z_i-Z_{i-1}\right)\left(Z_j-Z_{j-1}\right)\right] \\
+		& =\mathbb{E}\left[\mathbb{E}\left[\left(Z_i-Z_{i-1}\right)\left(Z_j-Z_{j-1}\right) \mid Z_1, \ldots, Z_i\right]\right] \\
+		& =\mathbb{E}\left[\left(Z_i-Z_{i-1}\right) \mathbb{E}\left[\left(Z_j-Z_{j-1}\right) \mid Z_1, \ldots, Z_i\right]\right] \\
+		& =\mathbb{E}\left[\left(Z_i-Z_{i-1}\right)\left(Z_i-Z_i\right)\right] \\
+		& =0
+	\end{aligned}
+\end{aligned}
+$$\\
+
+
+\noindent （6）在布朗运动中，从 0 状态到达其它任一状态的平均时间皆为正无穷\\
+答案：正确\\
+从0状态到达其他任意状态的平均时间为正无穷，但是到达其他状态的概率是1\\
+
+
+\noindent 2．（总 21 分，其中附加题 5 分）现有一个粒子在一个圆周上做随机游动，圆周上有 12个状态，按顺时针方向分别编号为 $1,2, \ldots, 12$ 。设 $X_{n}$ 表示粒子在时刻 $n$（即第 $n$ 步跳以后）所处的状态，且假设粒子的每一步跳都会等概率地往顺时针或逆时针方向跳一步．\\
+（1）（8 分）该过程长时间运行下去，求粒子处在状态 $k$ 的概率；\\
+（2）（8 分）求粒子从状态 12 出发重新回到 12 状态平均需要跳的步数；\\
+（3）【附加题， 5 分】粒子从状态 12 出发，再次回到状态 12 之前访问过其它所有的 11 个状态的概率有多大？\\
+解：\\
+（1）转移概率矩阵为：\\
+\[
+\begin{pmatrix}
+	0 & \frac{1}{2} & 0      & \cdots & \frac{1}{2} \\
+	\frac{1}{2} & 0 & \frac{1}{2} & \cdots & 0 \\
+	0      & \ddots & \ddots & \ddots & \vdots \\
+	\vdots & \cdots & \frac{1}{2}& 0 & \frac{1}{2}\\
+	\frac{1}{2}      & \cdots & 0      & \frac{1}{2}& 0
+\end{pmatrix}
+\]
+这是一个双随机Markov链（见\textbf{RK}）\\
+因此$\forall i \quad \pi_i=\frac{1}{12}$\\
+（2）$\mu_{12,12}=\frac{1}{\pi_{12}}=12$\\
+（3）对第一次转移的状态取条件\\
+\[
+	P(\text{从状态 12 出发，再次回到状态 12 之前访问过其它所有的 11 个状态}) 
+\]
+\[
+	= \frac{1}{2}P(\text{回到12前访问所有其他状态} \mid \text{第一步转移到1}) 
+\]
+\[
+	+ \frac{1}{2}P(\text{回到12前访问所有其他状态} \mid \text{第一步转移到11})
+\]
+由于转移概率均为$\frac{1}{2}$，计算$P(\text{回到12前访问所有其他状态} \mid \text{第一步转移到1})$即可\\
+由赌徒破产模型，这就相当于从财富1开始，赌徒先赢到11而不输光的概率，即$\frac{1}{11}$\\
+则
+\[
+P(\text{从状态 12 出发，再次回到状态 12 之前访问过其它所有的 11 个状态}) =\frac{1}{11}
+\]
+\textbf{RK}：双随机Markov链指的是转移概率矩阵的每一列的和为1的Markov链\\
+有$M$个状态$1,2,...,M$的Markov链有平稳概率：$\forall i,\pi_i=\frac{1}{M}$\\
+这可以通过直接代入平稳方程：$\pi_i=\sum\limits_{j}^{}\pi_j P_{ji}$来得到\\
+
+
+\noindent 3．（每小题 6 分，总 24 分）假设一个加油站有 3 个加油停车位和 2 个加油工，来到加油站的汽车按一个 Poisson 过程到达，平均每 10 分钟到达一辆．如果驾驶员发现加油车位已经被占用，则自行离开．假设每辆车加油所需时间服从均值为 20 分钟的指数分布．\\
+（1）求到达加油站没有加油直接离开的车辆的平均占比；\\
+（2）求稳态情形下在加油站等待或正在加油的平均车辆个数；\\
+（3）求稳态情形下相邻两个忙期开始的平均间隔时间；\\
+（4）求稳态情形下一个忙期之内平均加油的车辆数\\
+解：构建一个连续时间马氏链 $X(t)$ 表示在 $t$ 时刻加油站停靠车辆数，则 $X(t) \in\{0,1,2,3\}$ ，该马氏链可视为生灭过程，列出其增长率 $\lambda_0=\lambda_1=\lambda_2=\frac{1}{10}$ ，其死亡率为 $\mu_1=\frac{1}{20}, \mu_2=\mu_3=\frac{1}{10}$ 。首先求解其平稳分布 $P_i$ ，求解方程\\
+$$
+\begin{aligned}
+	\lambda_0 P_0 & =\mu_1 P_1 \\
+	\lambda_1 P_1+\mu_1 P_1 & =\mu_2 P_2+\lambda_0 P_0 \\
+	\lambda_2 P_2+\mu_2 P_2 & =\mu_3 P_3+\lambda_1 P_1 \\
+	\lambda_2 P_2 & =\mu_3 P_3 .
+\end{aligned}
+$$
+可以解出平稳概率为 $P_0=\frac{1}{7}, P_1=P_2=P_3=\frac{2}{7}$ 。\\
+（1）即求解加油站有三辆车的时间的平均占比，长程状态下该事件占比即为 $P_3$ 。\\
+（2）平均车辆数为 $P_1+2 P_2+3 P_3=\frac{12}{7}$ 。\\
+（3）当加油站内没有汽车时为闲期，当加油站内有汽车时为忙期。稳态下两个忙期开始的时间间隔即为一个忙期加一个闲期的平均时间，该时间也会和两个闲期开始的时间间隔一致，把闲期开始当做一次更新，因此一个更新区间内包含一个闲期和一个忙期，可视作交替更新过程，在稳态情况下可视作更新过程已运作无穷长时间，因此\\
+$$
+P_0=\frac{\mathbb{E}[\text { 一个闲期的长度 }]}{\mathbb{E}[\text { 一个闲期的长度 }]+\mathbb{E}[\text { 一个忙期的长度 }]} .
+$$
+由于闲期长度期望是已知的为 10 ，于是所求$\mathbb{E}[$ 一个闲期的长度 $]+\mathbb{E}[$ 一个忙期的长度 $]=70$ ．\\
+另一种方法：由于一个忙期开始时油站内汽车数必然为 1 ，因此忙期持续时间为油站内汽车数量为 1 时第一次返回汽车数量为 0 时所需时间，设油站内汽车数为 $i$ 时第一次到汽车数为 0 时所需时间为 $T_i$ ，则由全概率公式\\
+$$
+\begin{aligned}
+	& \mathbb{E} [T_1]=\frac{1}{3} \frac{1}{\lambda_1+\mu_1}+\frac{2}{3}\left(\mathbb{E} [T_2]+\frac{1}{\lambda_1+\mu_1}\right) \\
+	& \mathbb{E} [T_2]=\frac{1}{2}\left(\frac{1}{\lambda_2+\mu_2}+\mathbb{E} [T_1]\right)+\frac{1}{2}\left(\frac{1}{\lambda_2+\mu_2}+\mathbb{E} [T_3]\right) \\
+	& \mathbb{E} [T_3]=\frac{1}{\mu_3}+\mathbb{E} [T_2]
+\end{aligned}
+$$
+解得 $\mathbb{E} [T_1]=60$ ，这表明忙期平均时间为 60 ，从而
+$$\mathbb{E}[ \text{一个闲期的长度} ]+\mathbb{E}[ \text{一个忙期的长度} ]=70$$
+（4）同上，将进入闲期当做一次更新，把加油车辆数看做报酬，于是由更新报酬过程知\\
+$$
+\lim _{t \rightarrow \infty} \frac{\mathbb{E}[\text { 在 }(0, t) \text { 加油车辆总数 }]}{t}=\frac{\mathbb{E}[\text { 一个忙期内加油车辆总数 }]}{\mathbb{E}[\text { 一个闲期的长度 }]+\mathbb{E}[\text { 一个忙期的长度 }]} .
+$$
+另一方面，在稳态情况下\\
+\[
+\lim _{t \rightarrow \infty} \frac{\mathbb{E}[\text { 在 }(0, t) \text { 加油车辆总数 }]}{t}=\text { 实际进入加油车辆比例 } \times \text { 车辆到来速率 }
+\]
+\[
+=\frac{5}{7} \times \frac{1}{10}=\frac{1}{14} \text {. }
+\]
+于是可得一个忙期内平均加油车辆数为 5 ．\\
+\textbf{RK}：(1)对于连续Markov链，利用交替更新过程，把回到$i$记录为一次更新，停留在$i$记为系统在“开”状态，则两次回到状态$i$的平均时间与极限概率有关系：$\mu_{ii}=\frac{1}{v_i P_i}$，其中$v_i$是离开状态$i$的总速率\\
+(2)对于$M/ M/ s$排队系统，顾客Poisson到达的速率为$\lambda$，每条服务链服务的速率为$\mu$，利用生灭过程的极限概率：\\
+\[
+P_0=\left[1+\sum\limits_{n=1}^{\infty} \frac{\lambda_0 \dots \lambda_{n-1}}{\mu_1 \dots \mu_n} \right] ^{-1}
+\]
+\[
+P_n=\frac{\lambda_0 \dots \lambda_{n-1}}{\mu_1 \dots \mu_n\left(1+\sum\limits_{n=1}^{\infty} \frac{\lambda_0 \dots \lambda_{n-1}}{\mu_1 \dots \mu_n} \right) }
+\]
+并记流量强度$\rho=\frac{\lambda}{s\mu}$\\
+则极限概率为：
+\[
+P_0=\left[1+\sum\limits_{n=1}^{s} \frac{1}{n!} \left( \frac{\lambda}{\mu}\right) ^n+\frac{1}{s!} \frac{\rho}{1-\rho} \left(\frac{\lambda}{\mu} \right) ^s \right] ^{-1}
+\]
+\[
+P_n=
+\begin{cases}
+	\frac{1}{n!} \left(\frac{\lambda}{\mu} \right)^n P_0  &  n \le s \\
+	\rho^{n-s} \frac{1}{s!} \left(\frac{\lambda}{\mu} \right)^s P_0  &  n>s
+\end{cases}
+\]
+系统内平均总顾客数：
+\[
+L=\sum\limits_{n=0}^{\infty} nP_n=\frac{\lambda}{\mu}+\frac{1}{s!} \left(\frac{\lambda}{\mu} \right)^s \frac{\rho}{\left(1-\rho \right)^2 } P_0
+\]
+忙期的期望利用(1)有：
+\[
+E[B]=\frac{1}{v_0P_0}-\frac{1}{\lambda}=\frac{1}{\lambda P_0}-\frac{1}{\lambda}
+\]\\
+
+
+\noindent 4．（第 1 小题 10 分，第 2 小题 6 分，总 16 分）考虑分别具有参数 $\lambda_i, \mu_i$ 的两个 $M / M / 1$系统，其中 $\lambda_i$ 为顾客到达率，$\mu_i$ 为服务率，$\lambda_i<\mu_i, i=1,2$ ．假设它们共享同一个有限容量 $N$ 的等待室，即当等待室满员时，所有潜在的到达者不管到哪一个队列都离开而消失。\\
+（1）计算有 $n$ 个人在第一个队列（当 $n>0$ 时，一人在接受服务，其他 $n-1$ 个人在等待室）且有 $m$ 个人在第二个队列的极限概率；\\
+（2）该过程在平稳态下是时间可逆的吗？\\
+解：设 $N_i(t)$ 表示时刻 $t$ 第 $i$ 个排队系统中的顾客数\\
+则向量过程$\left\{\left(N_1(t), N_2(t)\right), t \geq\right.$ $0\}$ 是一个连续时间的马氏链．$n=\left(n_1, n_2\right)$ 为该马氏链的状态，满足 $n_1+n_2 \leq N$ \\
+先考虑没有等待室的情况（或者认为等待室能容纳无穷多人），此时$N_1(t),N_2(t)$相互独立且分别时间可逆,那么向量过程$\left(N_1(t), N_2(t)\right)$是时间可逆的\\
+则\\
+（2）注意有等待室的链是没有等待室的链$\left(N_1(t), N_2(t)\right)$在一些状态上的截止，因此是可逆的\\
+（1）由截止链的性质，截止链的极限概率是完整链在截止的状态空间上的加权，记截止链的极限概率为$\tilde{P}_{i,j}$，完整链的极限概率为$P_{i,j}$则有：\\
+\[
+\tilde{P}_{i,j}=\frac{P_{i,j}}{\sum\limits_{(i,j) \in \mathcal{A}}^{} P_{i,j}} 
+\]
+\[
+\mathcal{A}=\{(n,0):n\le N+1 \} \cup \{ (0,m):m \le N+1\} \cup \{ (n,m):n,m>0\quad n+m \le N+2\}
+\]
+\textbf{RK}：以下是两个定理的详细证明过程：\\
+\textbf{THM1}：\\
+如果 $\{X(t)\}$ 和 $\{Y(t)\}$ 是独立的连续时间的马尔可夫链，两者都是时间可逆的．则 $\{X(t), Y(t)\}$ 也是一个时间可逆的连续时间马尔可夫链．\\
+证：\\
+以 $P_{i j}^x, v_i^x$ 记 $X(t)$ 的参数，而 $P_{i j}^y, v_i^y$ 记过程 $Y(t)$ 的参数；而且令极限分布分别是 $P_i^x, P_i^y$ ．由独立性我们有 $\{X(t), Y(t)\}$ 是连续时间马尔可夫链，其参数
+$$
+\begin{gathered}
+	v_{(i, l)}=v_i^x+v_l^y \\
+	P_{(i, l)(j, l)}=\frac{v_i^x}{v_i^x+v_l^y} P_{i j}^x\\
+	P_{(i, l)(i, k)}=\frac{v_l^y}{v_i^x+v_l^y} P_{l k}^y
+\end{gathered}
+$$
+且
+$$
+\lim _{t \rightarrow \infty} \mathrm{P}\{(X(t), Y(t))=(i, j)\}=P_i^x P_j^y
+$$
+因此，我们需要证明
+$$
+P_i^x P_l^y v_i^x P_{i j}^x=P_j^x P_l^y v_j^x P_{j i}^x
+$$
+（即从 $(i, l)$ 到 $(j, l)$ 的速率等于从 $(j, l)$ 到 $(i, l)$ 的速率）．但这是由于在 $X(t)$ 中从 $i$ 到 $j$的速率等于从 $j$ 到 $i$ 的速率，即\\
+$$
+\begin{aligned}
+	&P_i^x v_i^x P_{i j}^x=P_j^x v_j^x P_{j i}^x\\
+\end{aligned}
+$$
+在看$(i, l)$和$(i, k)$时，其分析是类似的．\\
+\textbf{THM2}\\
+一个具有极限概率 $P_j(j \in S)$ 的时间可逆的连续链，其截止在集合 $A \subset S$ 而保持不可约的连续链也是时间可逆的，而且具有由\\
+$$
+P_j^A=\frac{P_j}{\sum_{i \in A} P_i}, \quad j \in A
+$$
+给出的极限概率 $P_j^A$ \\
+证: 对于给定的 $P_j^A$ ，我们需要证明
+$$
+P_i^A q_{i j}=P_j^A q_{j i} \text {, 对 } i \in A, j \in A
+$$
+或者，等价地
+$$
+P_i q_{i j}=P_j q_{j i}, \quad \text { 对 } i \in A, j \in A
+$$
+而这个式子成立是因为原来的链是时间可逆的\\
+
+
+\noindent 5．（每小题 8 分，总 16 分）考虑一个简单随机游动，其中质点每次向右移动一个单位的概率为 $p \in(0,1)$ ，往左移动一个单位的概率为 $q=1-p$ 。令 $S_{n}$ 为质点时刻 $n$（即第 $n$ 次跳之后）所处的位置，且假设 $S_{0}=0$ ．\\
+（1）证明 $\left\{Z_{n}, n \geq 0\right\}$ 为一个鞅，其中
+$$
+Z_{n}=\frac{1}{[4 p(1-p)]^{n / 2}}\left(\frac{1-p}{p}\right)^{S_{n} / 2}
+$$
+（2）证明：对任意 $n \geq 1$ 和 $a>1$ ，
+$$
+\mathrm{P}\left(\max \left\{Z_{1}, \ldots, Z_{n}\right\}>a\right) \leq \frac{1}{a}
+$$
+解：（1）\\
+$$
+\begin{aligned}
+	\mathbb{E}[Z_{n+1}|Z_1,...,Z_n] &= \mathbb{E}\left[\frac{1}{[4 p(1-p)]^{(n+1) / 2}}\left(\frac{1-p}{p}\right)^{S_{n} / 2}\left(\frac{1-p}{p}\right)^{X_{n+1} / 2}|Z_1,...Z_n\right] \\
+ & =\frac{1}{[4 p(1-p)]^{(n+1) / 2}}\left(\frac{1-p}{p}\right)^{S_{n} / 2}\mathbb{E}\left[\left(\frac{1-p}{p}\right)^{X_{n+1} / 2}\right ]
+\end{aligned}
+$$
+其中
+\[
+\mathbb{E}\left[\left(\frac{1-p}{p}\right)^{X_{n+1} / 2}\right ]=p\left(\frac{1-p}{p}\right)^{1 / 2}+(1-p)\left(\frac{p}{1-p}\right)^{1 / 2}=2\sqrt{p(1-p)}
+\]
+则
+\[
+\mathbb{E}[Z_{n+1}|Z_1,...,Z_n]=Z_n
+\]
+另外注意到$Z_n$恒正，那么$\mathbb{E}[|Z_n|]=\mathbb{E}[Z_n]=\mathbb{E}[Z_1]=1<\infty$\\
+则有$Z_n$是鞅\\
+（2）$Z_n$恒正，由下鞅的Kolmogorov不等式就有\\
+\[
+P(\max\{Z_1,...,Z_n\}>a) \le \frac{\mathbb{E}[Z_n]}{a}=\frac{\mathbb{E}[Z_1]}{a}=\frac{1}{a}
+\]\\
+
+
+\noindent 6．（10 分）设 $\{B(t), t \geq 0\}$ 是一个标准布朗运动，定义随机变量序列 $Z_{n} = \sum_{k=1}^{n} B(k)$ ， $n \geq 1$ ，求 $Z_{n}$ 的分布\\
+解：利用Brown运动的独立增量性和平稳增量性\\
+\[
+Z_{n} = \sum_{k=1}^{n} B(k)=nB(1)+(n-1)(B(2)-B(1))+\dots+(B(n)-B(n-1))
+\]
+其中
+\[
+B(k)-B(k-1) \sim N(0,1) \quad \forall k \quad \text{且对于不同的k，它们相互独立}
+\]
+则
+\[
+Z_{n} = \sum_{k=1}^{n} B(k) \sim N\left(0,\sum_{k=1}^{n} k^2\right) = N\left(0,\frac{n(n+1)(2n+1)}{6}\right)
+\]
+
+
+\end{document}

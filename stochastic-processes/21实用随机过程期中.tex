@@ -1,0 +1,237 @@
+\documentclass[UTF8]{ctexart}
+%\documentclass{article}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib, float,tikz,graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{calligra} 
+
+\title{21实用随机过程期中}
+\author{\textcalligra{NULIOUS}} 
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+
+\begin{document}
+\maketitle
+\noindent 1．（14 分）设 $\left\{X_{n}, n \geq 1\right\}$ 和 $\left\{Y_{n}, n \geq 1\right\}$ 是两个独立同分布的随机变量序列，满足 $\mathbb{E} [X_{1}]=\mu_{1}, \mathbb{E} [Y_{1}]=\mu_{2}$ ，再设 $N \sim \operatorname{Poission}(\lambda)$ 且独立于 $\left\{X_{n}, Y_{n}, n \geq 1\right\}$ ，求 $\operatorname{Cov}\left(\sum\limits_{i=1}^N X_{i}, \sum\limits_{j=1}^N Y_{j}\right)$ 。\\
+解：$N$与$\left\{X_{n}, n \geq 1\right\}$ 和 $\left\{Y_{n}, n \geq 1\right\}$ 独立，则$N$为停时，由$Wald$方程有
+\[
+\mathbb{E}\left[\sum\limits_{i=1}^N X_{i} \right]=\mathbb{E}[N]\mathbb{E}[X_i]=\lambda \mu_1 
+\]
+\[
+\mathbb{E}\left[\sum\limits_{i=1}^N Y_{i} \right]=\mathbb{E}[N]\mathbb{E}[Y_i]=\lambda \mu_2
+\]
+再由独立同分布性和$Wald$方程有
+\begin{align*}
+	\mathbb{E}\left[\left(\sum_{i=1}^N X_i \right) \left(\sum_{i=1}^N Y_i  \right)   \right]  & =\mathbb{E}\left[\sum\limits_{i=1}^{N^2} X_iY_i \right] \\
+	 & =\mathbb{E}[N^2]\mathbb{E}[X_iY_i]\\
+	 &=\mathbb{E}[N^2]\mathbb{E}[X_i]\mathbb{E}[Y_i]\\
+	 &=(\lambda^2+\lambda)\mu_1 \mu_2
+\end{align*}
+最后
+\begin{align*}
+	\operatorname{Cov}\left(\sum\limits_{i=1}^N X_{i}, \sum\limits_{j=1}^N Y_{j}\right) & =\mathbb{E}\left[\left(\sum_{i=1}^N X_i \right) \left(\sum_{i=1}^N Y_i  \right)   \right]-\mathbb{E}\left[\sum\limits_{i=1}^N X_{i} \right]\mathbb{E}\left[\sum\limits_{i=1}^N Y_{i} \right] \\
+	 & =\lambda \mu_1 \mu_2
+\end{align*}\\
+
+
+
+
+\noindent 2．（总16分，每小题8分）设 $X_{1}, \ldots, X_{n}$ 相互独立，$X_{k} \sim \operatorname{Exp}\left(\lambda_{k}\right), k=1, \ldots, n$ ．\\
+（1）求 $\mathrm{P}\left(X_{i}=\min\limits_{1 \leq j \leq n} X_{j}\right)$ ；\\
+（2）求 $\mathrm{P}\left(X_{i}=\min\limits_{1 \leq j \leq n} X_{j} \mid \min\limits_{1 \leq k \leq n} X_{k}>t\right)$ ，其中 $t>0$ ．\\
+解：（1）
+\[
+\mathrm{P}\left(X_{i}=\min\limits_{1 \leq j \leq n} X_{j}\right)=\frac{\lambda_i}{\sum\limits_{j=1}^n \lambda_j}
+\]
+以$X_1$为例证明这个结论，首先
+\begin{align*}
+	\mathrm{P}\left(X_{1}=\min\limits_{1 \leq j \leq n} X_{j}\mid X_1=t \right) & =\prod\limits_{j=2}^{n} \mathrm{P}(X_j>t) \\
+	 & = \prod\limits_{j=2}^{n} e^{-\lambda_j t}\\
+	 &=e^{-t \sum\limits_{i=2}^{n} \lambda_i}
+\end{align*}
+利用全概率公式
+\begin{align*}
+	\mathrm{P}\left(X_{1}=\min\limits_{1 \leq j \leq n} X_{j}\right) & = \int_{0}^{+\infty} 	\mathrm{P}\left(X_{1}=\min\limits_{1 \leq j \leq n} X_{j}\mid X_1=t \right) f_{X_1}(t)dt  \\
+	 & =\int_{0}^{+\infty} e^{-t \sum\limits_{i=2}^{n} \lambda_i} \lambda_1 e^{-\lambda_1 t}dt\\
+	 &=\lambda_1 \int_{0}^{+\infty} e^{-t \sum\limits_{i=1}^{n} \lambda_i}  dt
+\end{align*}
+注意到$\mathrm{Exp}\left( \sum_{i=1}^{n} \lambda_i \right) $的密度的积分为1
+\[
+\int_{0}^{+\infty} \left(\sum_{i=1}^{n} \lambda_i \right) e^{-t \sum\limits_{i=1}^{n} \lambda_i}  dt=1
+\]
+最后
+\[
+\mathrm{P}\left(X_{i}=\min\limits_{1 \leq j \leq n} X_{j}\right)=\frac{\lambda_1}{\sum\limits_{j=1}^n \lambda_j}
+\]
+上面过程中把$X_1$换成$X_i$，结论相似地成立\\
+（2）由指数分布的无记忆性
+\[
+\mathrm{P}\left(X_i>s+t \mid X_i>t \right) = \mathrm{P}(X_i>s) 
+\]
+令$Y_i=X_i-t\mid X>t$ ，则$Y_i\sim \mathrm{Exp}(\lambda_i)$\\
+最后
+\[
+\mathrm{P}\left(X_{i}=\min\limits_{1 \leq j \leq n} X_{j} \mid \min\limits_{1 \leq k \leq n} X_{k}>t\right)=\mathrm{P}\left(Y_{i}=\min\limits_{1 \leq j \leq n} Y_{j}\right)=\frac{\lambda_i}{\sum\limits_{j=1}^n \lambda_j}
+\]\\
+
+
+
+
+\noindent 3．（16 分）设 $\{N(t), t \geq 0\}$ 是强度 $\lambda=2$ 的齐次 Poisson 过程，第 $i$ 个事件发生时刻记为 $S_{i}, i \geq 1$ ．求
+$$
+\mathbb{E}\left[\sum_{i=1}^{\infty} Z_{i} \max \left\{10-S_{i}, 0\right\}\right],
+$$
+其中 $\left\{Z_{n}, n \geq 1\right\}$ iid $\sim N(5,10)$ ，该序列独立于过程 $\{N(t), t \geq 0\}$ ．\\
+解：注意到
+\[
+\mathbb{E}\left[\sum_{i=1}^{\infty} Z_{i} \max \left\{10-S_{i}, 0\right\}\right]=\mathbb{E}\left[\sum_{i=1}^{N(10)} Z_{i}  (10-S_{i}) \right]
+\]
+所以只需要考虑$S_i<10$的事件即可\\
+对$N(10)=n$取条件，利用独立性，有
+\begin{align*}
+	\mathbb{E}\left[\sum_{i=1}^{N(10)} Z_{i}  (10-S_{i})\mid N(10)=n \right] & =\mathbb{E}\left[\sum_{i=1}^{N(10)} Z_{i}  (10-U_{(i)}) \right] \\
+	& = \mathbb{E}[Z_1] \mathbb{E}\left[ \sum_{i=1}^n (10-U_{(i)})\right] \\
+	&=5\cdot 5n\\
+	&=25n
+\end{align*}
+则有
+\[
+\mathbb{E}\left[\sum_{i=1}^{\infty} Z_{i} \max \left\{10-S_{i}, 0\right\}\right]=\mathbb{E}\left[\mathbb{E}\left[\sum_{i=1}^{N(10)} Z_{i}  (10-S_{i})\mid N(10)=n \right] \right] =25\mathbb{E}[N(10)]=500
+\]\\
+
+
+
+\noindent 4．（16 分，第一小题 10 分，第二小题 6 分）假设系统故障的发生规律可以用齐次 Poisson过程来描述，单位时间平均发生 12 次故障，每次故障都要造成损失，分别以概率 $1 / 2$ ， $1 / 3$ 和 $1 / 6$ 损失 $\$ 1, \$ 5$ 和 $\$ 10$ ．设 $X(t)$ 表示到时刻 $t$ 系统因故障累计造成的损失大小．\\
+（1）求 $\mathrm{P}(X(t)=11)$ ；\\
+（2）求 $\operatorname{Cov}(X(t), X(t+5))$ ．\\
+解：（1）$X(t)=11$有以下情况：\\
+i.1次10$+$1次1\\
+ii.2次5$+$1次1\\
+iii.1次5$+$6次1\\
+iv.11次1\\
+则由全概率公式
+\begin{align*}
+	P(X(t)=11) & =P(N(t)=2)\dbinom{2}{1}\left(\frac{1}{2} \right)\left(\frac{1}{6} \right)+  P(N(t)=3)\dbinom{3}{1}\left(\frac{1}{2} \right)\left(\frac{1}{3} \right)^2 \\
+	 & +  P(N(t)=7)\dbinom{7}{1}\left(\frac{1}{2} \right)^6 \left(\frac{1}{3} \right)+  P(N(t)=11)\left(\frac{1}{2} \right)^{11}
+\end{align*}
+最后代入$N(t)\sim \mathrm{P}(\lambda t )$即可\\
+（2）证明一个更一般的结论\\
+对于复合Poisson过程$X(t)=\sum\limits_{i=1}^{N(t)} X_i$，其中$N(t)$为Poisson过程，其协方差为
+\[
+\operatorname{Cov}\left(X(t),X(s) \right)=Var(X(\min\{t,s\})) =\lambda \min\{t,s\}\mathbb{E}[X_i^2]
+\]
+下面设$s\le t$，由协方差的双线性性
+\[
+\operatorname{Cov}\left(X(t),X(s) \right)=\operatorname{Cov}(X(s),X(S))+\operatorname{Cov}(X(t)-X(s),X(s))
+\]
+又由独立增量性
+\[
+\operatorname{Cov}(X(t)-X(s),X(s))=0
+\]
+则
+\[
+\operatorname{Cov}\left(X(t),X(s) \right)=\operatorname{Var}(X(s)) =\lambda s\mathbb{E}[X_i^2]
+\]
+对于本题
+\[
+\operatorname{Cov}(X(t), X(t+5))=306t
+\]\\
+
+
+
+
+
+\noindent 5．（总 22 分，前三小题每题 5 分，最后一小题 7 分）假设一个元件于时刻 0 开始投入使用，该元件易于受到外界的冲击，在前 5 个小时内冲击以每小时 4 个的泊松速率到达，在随后的时间段中冲击是每小时 2 个的泊松速率到达。泊松速率到达是指不可能有两个或多个冲击同时到达。\\
+（1）问冲击到达可以用什么样的过程来描述？\\
+（2）求时间段 $(2,4]$ 有 1 个冲击发生的概率．\\
+（3）求时间段 $(4,6]$ 有 1 个冲击发生的概率．\\
+（4）求第三个冲击发生时刻 $S_{3}$ 的概率密度函数．\\
+解：（1）这是一个非齐次的Poisson过程\\
+有强度函数
+\[
+\lambda(t)=
+\begin{cases}
+	4  &  t\le 5 \\
+	2  &  t>5
+\end{cases}
+\]
+（2）首先$$N(4)-N(2)\sim \mathrm{P}(8)$$
+则
+\[
+P(N(4)-N(2)=1)=8e^{-8}
+\]
+（3）分成两段，记$X_1=N(5)-N(4)$和$X_2=N(6)-N(5)$，则
+\[
+X_1\sim \mathrm{P}(4) \quad X_2 \sim \mathrm{P}(2)
+\]
+由全概率公式和独立增量性
+\begin{align*}
+	P(X_1+X_2=1) &= P(X_1=0)P(X_2=1)+P(X_1=1)P(X_2=0) \\
+	 & =6e^{-6}
+\end{align*}
+（4）设$m(t)=\int_{0}^{t} \lambda(s)ds$，则$N(t)\sim \mathrm{P}(m(t))$\\
+则
+\begin{align*}
+	f_{S_3}(t) & =\lim_{h\rightarrow 0}\frac{P\left( S_3\in (t,t+h)\right) }{h} \\
+	&= \lim_{h\rightarrow 0}\frac{P(N(t)=2)P(N(t+h)-N(t)=1) }{h}\\
+	&= \frac{\frac{m^2(t)}{2}e^{-m(t)}\lambda(t)h}{h} \\
+	&=
+	\begin{cases}
+		32t^2 e^{-4t}  &  t \le 5 \\
+		(2t+10)^2 e^{-(2t+10)} &  t>5
+	\end{cases}
+\end{align*}
+
+
+
+\noindent 6．（16 分）设 $\left\{X_{n}, n \geq 1\right\}$ 是独立同分布的非负随机变量序列，共同的分布具有概率密度函数 $f(x), M \sim \operatorname{Poisson}\left(\lambda_{0}\right), \lambda_{0}>0$ ，且独立于 $\left\{X_{n}, n \geq 1\right\}$ ，定义
+$$
+N(t)=\#\left\{k: X_{k} \leq t, k \leq M\right\}, \quad t \geq 0,
+$$
+证明 $\{N(t), t \geq 0\}$ 是非齐次 Poisson 过程，其强度函数为 $\lambda(t)=\lambda_{0} f(t)$ ．\\
+解：先说明一下$N(t)$是怎么构造的：随机变量$M$取定一个值$m$后，对$\forall k \le m$检验条件$X_k \le t$是否成立，$N(t)$就是满足上式条件的$X_k$的数量\\
+$N(t)$的独立增量性由$X_n$独立同分布给出，下面证明强度函数为 $\lambda(t)=\lambda_{0} f(t)$\\
+首先
+\[
+N(t+s)-N(s)=\# \left\{k:s< X_{k} \leq s+t, k \leq M\right\}
+\]
+则在给定$M=m$的条件下有
+\[
+N(t+s)-N(s) \mid M=m \sim \mathrm{B}(m,p)
+\]
+其中$p=P(s<X\le t+s)=\int_{s}^{t+s} f(x)dx $\\
+由全概率公式
+\begin{align*}
+	P(N(t+s)-N(s)=k) & = \sum\limits_{m=k}^{\infty}P(N(t+s)-N(s)=k\mid M=m)P(M=m)  \\
+	&= \sum\limits_{m=k}^{\infty} \dbinom{m}{k} p^k (1-p)^{m-k}\frac{\lambda_0^m e^{-\lambda_0}}{m!}\\
+	&=e^{-\lambda_0}  \sum\limits_{i=0}^{\infty} \dbinom{i+k}{k} p^k \frac{(1-p)^i \lambda_0^i }{(i+k)!}\cdot \lambda_0^k\\
+	&=e^{-\lambda_0} \frac{(\lambda_0 p)^k}{k!} \sum\limits_{m=k}^{\infty} \frac{\left(\lambda_0 (1-p) \right)^i }{i!}\\
+	&=e^{-\lambda_0} \frac{(\lambda_0 p)^k}{k!} \cdot e^{\lambda_{0}(1-p)}\\
+	&=\frac{(\lambda_0 p)^k}{k!} e^{-\lambda_0 p}
+\end{align*}
+即
+\[
+N(t+s)-N(s)\sim \mathrm{P}(\lambda_0 p)
+\]
+注意
+\[
+p=\int_{s}^{t+s} f(x)dx
+\]
+则
+\[
+N(t+s)-N(s)\sim \mathrm{P}\left( \int_{s}^{t+s} \lambda_0 f(x)dx\right) 
+\]
+这就说明了强度函数为 $\lambda(t)=\lambda_{0} f(t)$\\
+
+
+
+
+
+\end{document}

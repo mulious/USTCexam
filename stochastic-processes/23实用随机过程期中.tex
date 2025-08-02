@@ -1,0 +1,193 @@
+\documentclass[UTF8]{ctexart}
+%\documentclass{article}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib, float,tikz,graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{calligra} 
+
+\title{23实用随机过程期中}
+\author{} 
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\begin{document}
+\maketitle
+\noindent 1．（总 18 分，每小题 6 分）设顾客到达某个商店的规律可以用参数 $\lambda=1$ 的齐次 Poisson过程 $\{N(t), t \geq 0\}$ 来描述，时间单位为小时．已知前 1 个小时内仅有 2 位顾客到达．\\
+（1）求第 2 个小时内有 3 位顾客到达的概率；\\
+（2）求这 2 位顾客都是在前 20 分钟到达的概率；\\
+（3）求至少有一位顾客是在前 20 分钟到达的概率．\\
+解：（1）利用独立增量性质得
+$$
+P(N(2)-N(1)=3 \mid N(1)=2)=P(N(2)-N(1)=3)=\frac{1}{6} \lambda^{3} e^{-\lambda}=\frac{1}{6 e}
+$$
+（2）+（3） 利用 $\left[\left(S_{1}, S_{2}\right) \mid N(1)=2\right] \stackrel{d}{=}\left(U_{(1)}, U_{(2)}\right)$ ，其中 $U_{1}, U_{2}$ iid $\sim \mathrm{U}(0,1)$， $\left(U_{(1)}, U_{(2)}\right)$为其次序统计量，于是，
+$$
+\begin{gathered}
+	P\left(S_{1} \leq \frac{1}{3}, \left.S_{2} \leq \frac{1}{3} \right\rvert\, N(1)=2\right)=P\left(U_{1} \leq \frac{1}{3}, U_{2} \leq \frac{1}{3}\right)=\frac{1}{9} \\
+	P\left(\left.S_{1} \leq \frac{1}{3} \right\rvert\, N(1)=2\right)=1-P\left(U_{1}>\frac{1}{3}, U_{2}>\frac{1}{3}\right)=\frac{5}{9}
+\end{gathered}
+$$\\
+
+
+\noindent 2．（15 分）设 $\{N(t), t \geq 0\}$ 是参数为 $\lambda=1$ 的齐次 Poisson 过程，事件发生时刻序列记为 $\left\{S_{n}, n \geq 1\right\}$ ．求
+$$
+\mathbb{E}\left[\sum_{k=1}^{N(\pi / 2)} \sin \left(S_{k}\right)\right], \quad \operatorname{Var}\left(\sum_{k=1}^{N(\pi / 2)} \sin \left(S_{k}\right)\right)
+$$\\
+解：设 $\left\{U_{k}, k \geq 1\right\} \mathrm{iid} \sim \mathrm{U}(0, \pi / 2)$ ，则
+$$
+\sum_{k=1}^{N(\pi / 2)} \sin \left(S_{k}\right) \stackrel{d}{=} \sum_{k=1}^{N(\pi / 2)} \sin \left(U_{k}\right)
+$$
+上式来自有限求和可以交换次序；并注意到右端为复合 Poisson 过程。于是
+$$
+\begin{gathered}
+	\mathbb{E}\left[\sum_{k=1}^{N(\pi / 2)} \sin \left(S_{k}\right)\right]=\frac{\lambda \pi}{2} \mathbb{E}\left[\sin \left(U_{1}\right)\right]=\lambda=1 \\
+	\operatorname{Var}\left(\sum_{k=1}^{N(\pi / 2)} g\left(S_{k}\right)\right)=\frac{\lambda \pi}{2} \mathbb{E}\left[g^{2}\left(U_{1}\right)\right]=\lambda \int_{0}^{\pi / 2} \sin ^{2} x d x=\frac{\lambda \pi}{4}=\frac{\pi}{4}
+\end{gathered}
+$$\\
+
+
+\noindent 3．（总 38 分，前 3 题每小题 6 分，后 2 小题每题 10 分）假设冲击按参数为 $\lambda=1$ 的 Poisson 过程发生，且假设每次冲击独立地以概率 $p$ 引起系统失效。以 $M_{r}$ 记使得系统第 $r$ 次失效的冲击数，$T_{r}$ 表示系统第 r 次失效的时刻，其中 $r \geq 1$ 为整数。\\
+（1）求 $M_{2}$ 的概率分布；\\
+（2）给定 $M_{2}=n \geq 2$ ，求 $T_{2}$ 的条件分布；\\
+（3）求 $\mathrm{P}\left(M_{2}=n \mid T_{2}=t\right)$ ，其中 $n \geq 2$ ；\\
+（4）求 $\mathrm{P}\left(M_{r}=n \mid T_{r}=t\right)$ ，其中 $n \geq r \geq 3$ ；\\
+（5）假设每次冲击造成系统的损失为 $c_{1}$ 元，若造成系统失效，则还需要额外的 $c_{2}$ 元维修损失费．记 $R(t)$ 为 $(0, t]$ 时间段冲击造成系统总的损失费，求 $\lim _{t \rightarrow \infty} R(t) / t$ ．\\
+解：（1）首先，$M_{2} \sim \mathrm{NB}(2, p)$服从参数为 $(2 . p)$ 的负二项分布，取值于 $\{2,3, \ldots\}$ ，即
+$$
+P\left(M_{2}=n\right)=\binom{n-1}{1} p^{2}(1-p)^{n-2}=(n-1) p^{2}(1-p)^{n-2}, \quad n \geq 2
+$$
+（2）利用 $\left[T_{2} \mid M_{2}=n\right]=\left[S_{n} \mid M_{2}=n\right]=S_{n} \sim \Gamma(n, 1)$ ．\\
+\textbf{RK}：$n$个独立的指数分布$X_i \sim \mathrm{Exp}(\lambda),i=1,...,n$，则其独立和$\sum_{i=1}^n X_i \sim \Gamma\left(n,\lambda \right) $\\
+（3）可以参考（4）中的一般解法\\
+记 $g_{T_{2} \mid M_{2}}(t \mid n)$ 为 $\left[T_{2} \mid M_{2}=n\right]$ 的条件概率密度函数，则由（2）得
+$$
+g_{T_{2} \mid M_{2}}(t \mid n)=\frac{\lambda(\lambda t)^{n-1}}{(n-1)!} e^{-\lambda t}
+$$
+对 $M_{2}$ 取条件，由（2）可以得到 $T$ 的概率密度函数为
+$$
+\begin{aligned}
+	g_{T_{2}}(t) & =\sum_{k=2}^{\infty} g_{T_{2} \mid M_{2}}(t \mid k) \cdot P\left(M_{2}=k\right) \\
+	& =\sum_{k=2}^{\infty} \frac{\lambda(\lambda t)^{k-1}}{(k-1)!} e^{-\lambda t} \cdot(k-1) p^{2}(1-p)^{k-2}=p^{2} \lambda^{2} t e^{-\lambda t p}
+\end{aligned}
+$$
+于是，当 $n \geq 2$ 时，
+$$
+P\left(M_{2}=n \mid T_{2}=t\right)=\frac{g_{T_{2} \mid M_{2}}(t \mid n) \cdot \mathrm{P}\left(M_{2}=n\right)}{g_{T_{2}}(t)}=\frac{[\lambda t(1-p)]^{n-2}}{(n-2)!} \exp \{-\lambda t(1-p)\}
+$$
+（4）考虑 Poisson 过程事件分类，任意时刻 $s$ 发生的冲击事件以概率 $p$ 划为 I 型事件（造成系统失效），以概率 $1-p$ 划为 II 型事件（未造成系统失效），分别以 $N_{i}(t)$表示 $(0, t]$ 时间段 $i$ 型事件发生的个数，则$N_1(t),N_2(t)$相互独立。给定 $T_{r}=t$ 表示系统于时刻 $t$ 第 $r$ 次失效，且第 $r$ 个 I型事件一定发生于时刻 $t$ ，截止到$t$时刻的 所有冲击个数应该为 $M_r=N_{2}(t)+r$ ，即
+$$
+\left[M_{r}-r \mid T_{r}=t\right]=N_{2}(t) \sim \operatorname{Poi}(\lambda t(1-p))
+$$
+于是，
+$$
+P\left(M_{r}=n \mid T_{r}=t\right)=\mathrm{P}\left(N_{2}(t)=n-r \right)=\frac{[\lambda(1-p) t]^{n-r}}{(n-r)!} \exp \{-\lambda(1-p) t\}
+$$
+（5）引进一个更新酬劳过程，每当冲击造成系统失效，则称一个更新发生，该时刻称为更新点。此时，一个更新间隔长度 $T$ 与 $T_{1}$ 同分布，一个更新间隔里总的酬劳 $R$ 与 $c_{1} M_{1}+c_{2}$ ．注意到$M_1 \sim \mathrm{Ge}(p)$，则
+$$
+\mathbb{E}\left[T_{1}\right]=\mathbb{E}\left[\sum_{i=1}^{M_{1}} X_{i}\right]=\mathbb{E}\left[ \mathbb{E}\left[\sum_{i=1}^{M_{1}} X_{i}\mid M_1\right]\right] =\frac{1}{\lambda}\mathbb{E}[M_1]=\frac{1}{\lambda p} 
+$$
+$$
+\mathbb{E}[R]=c_{1} \mathbb{E}\left[M_{1}\right]+c_{2}=\frac{c_{1}}{p}+c_{2}
+$$
+其中 $\left\{X_{k}\right\}$ 为冲击到达间隔．于是，利用更新酬劳过程理论得
+$$
+\lim _{t \rightarrow \infty} \frac{R(t)}{t}=\frac{\mathbb{E}\left[T_{1}\right]}{\mathbb{E}[R]}=c_{1} \lambda+c_{2} \lambda p=c_{1}+c_{2} p
+$$\\
+
+
+
+\noindent 4．（14 分）设一个元件的工作过程可以用更新过程 $\{N(t), t \geq 0\}$ 来描述，更新间隔序列 $\left\{X_{n}, n \geq 1\right\}$ 独立同分布，共同分布 $F$ 具有非格子点性质，且满足 $\mathbb{E}\left[X_{1}\right]=1$ ， $\mathbb{E}\left[X_{1}^{3}\right]=3$ ，记 $Y(t)$ 为元件于时刻 $t$ 的剩余寿命，求 $\lim _{t \rightarrow \infty} {\mathbb{E}}\left[Y^{2}(t)\right]$ ．\\
+证法一：记 $h(t)=\mathbb{E}\left[(X-t)^{2}\mid X>t\right]\bar{F}(t)$ ，其中 $X \sim F$ ．对 $t$之前最后一次更新发生时刻 $S_{N(t)}$ 取条件得
+$$
+\begin{aligned}
+	\mathbb{E}\left[Y^{2}(t)\right]= & \mathbb{E}\left[Y^{2}(t) \mid S_{N(t)}=0\right] \cdot \bar{F}(t) \\
+	& +\int_{0}^{t} \mathbb{E}\left[Y^{2}(t) \mid S_{N(t)}=y\right] \bar{F}(t-y) \mathrm{d} m(y) \\
+	= & \mathbb{E}\left[(X-t)^{2} \mid X>t\right] \bar{F}(t) \\
+	& +\int_{0}^{t} \mathbb{E}\left[(X-(t-y))^{2} \mid X>t-y\right] \bar{F}(t-y) \mathrm{d} m(y) \\
+	= & h(t)+\int_{0}^{t} h(t-y) \mathrm{d} m(y) 
+\end{aligned}
+$$
+由关键更新定理，并注意到$\bar{F}(t)\rightarrow 0 (t\rightarrow \infty)$，则有
+$$
+\begin{aligned}
+	\lim _{t \rightarrow \infty} {\mathbb{E}}\left[Y^{2}(t)\right]&=0+\frac{1}{\mu}\int_{0}^{\infty}h(t)dt\\
+	&=\frac{1}{\mu}\int_{0}^{\infty} \mathbb{E}\left[(X-t)^2\mid X >t\right]\bar{F}(t)dt 
+\end{aligned}
+$$
+由期望的定义(这里将密度$f_{X|X>t}(s)$改写为$P(X=s|X>t)$)
+\begin{align*}
+	\mathbb{E}\left[(X-t)^2\mid X >t\right]\bar{F}(t) &
+	=\int_{t}^{\infty} (s-t)^2 f_{X|X>t}(s)P(X>t)ds  \\ &=\int_{t}^{\infty} (s-t)^2 P(X=s|X>t)P(X>t)ds  \\
+	& = \int_{t}^{\infty} (s-t)^2 P(X=s , X>t)ds  \\
+	& = \int_{t}^{\infty}  (s-t)^2 dF(s)\\
+	&\left( =\mathbb{E}\left[(X-t)^2 \mathbb{I}_{\{X >t\}}\right]\right) 
+\end{align*}
+上式也可以由全概率公式（对$X$的取值取条件）得到
+\begin{align*}
+	\mathbb{E}\left[(X-t)^2\mid X >t\right]\bar{F}(t) & =\int_{t}^{\infty} \mathbb{E}\left[(X-t)^2 \mid X=s,X>t \right] P(X>t \mid X=s)P(X=s)ds  \\
+    & = \int_{t}^{\infty} (s-t)^2 P(X=s , X>t)ds  \\
+    & = \int_{t}^{\infty}  (s-t)^2 dF(s)\\
+    &\left( =\mathbb{E}\left[(X-t)^2 \mathbb{I}_{\{X >t\}}\right]\right) 
+\end{align*}
+最后
+\begin{align*}
+	\lim _{t \rightarrow \infty} {\mathbb{E}}\left[Y^{2}(t)\right]&=\frac{1}{\mu}\int_{0}^{\infty} \int_{t}^{\infty} (s-t)^2dF(s)dt\\
+	 & \stackrel{Fubini\text{换序}}{=}\frac{1}{\mu}\int_{0}^{\infty} \int_{0}^{s} (s-t)^2dtdF(s)\\
+	 & =\frac{1}{\mu} \int_{0}^{\infty} \frac{s^3}{3}dF(s)\\
+	 &=\frac{\mathbb{E}\left[X_1^3  \right]}{3\mu}\\
+	 &=1
+\end{align*}
+\textbf{RK}：把过程中的$2$换成$r\in \mathbb{Z}^+$，结论类似地成立,即\\
+$$
+\lim _{t \rightarrow \infty} {\mathbb{E}}\left[Y^{r}(t)\right]=\frac{\mathbb{E}\left[X_1^{r+1} \right]}{(r+1)\mu}
+$$
+证法二：对首次更新发生时刻 $X_{1}$ 取条件，得
+$$
+\mathbb{E}\left[Y^{2}(t)\right]=\mathbb{E}\left[Y^{2}(t) \mid X_{1}>t\right] \cdot \bar{F}(t)+\int_{0}^{t} \mathbb{E}\left[Y^{2}(t) \mid X_{1}=y\right] d F(y)
+$$
+记 $h(t)=\mathbb{E}\left[(X-t)_{+}^{2}\right], g(t)=\mathbb{E}\left[Y^{2}(t)\right]$ ，则
+$$
+g(t)=h(t)+\int_{0}^{t} g(t-y) \mathrm{d} F(y)
+$$
+因此，
+$$
+g(t)=h(t)+\int_{0}^{t} h(t-y) \mathrm{d} m(y)
+$$
+余下同证法一．\\
+
+
+
+\noindent 5．（15 分）观察一列独立同分布的离散随机变量 $W_{1}, W_{2}, \ldots$ ，等待花样＂ 22322 ＂的发生．设
+$$
+\mathrm{P}\left(W_{1}=0\right)=\mathrm{P}\left(W_{1}=1\right)=\frac{1}{8}, \quad \mathrm{P}\left(W_{1}=2\right)=\frac{1}{2}, \quad \mathrm{P}\left(W_{1}=3\right)=\frac{1}{4}
+$$
+求等待花样＂ 22322 ＂首次发生所需要的期望时间．\\
+解法一：构造标准更新酬劳过程 $\left\{X_{n}, n \geq 1\right\}$ 如下：首次出现的花样＂ 22322 ＂时刻称为首次更新时刻：从该时刻以后开始（不考虑该时刻及其以前的历史）再次出现该花样的时刻称为第二次更新时刻；如此下去。每个更新区间里的酬劳并不是于更新点给付的，如果在任何时刻 $i$ 出现上述花样（此时考虑该时刻所有的历史），则给付酬劳 $R_{i}=1$ 个单位。在利用更新酬劳过程理论得
+\begin{equation*}
+	\lim _{n \rightarrow \infty} \frac{\mathbb{E}\left[R_{1}+R_{2}+\cdots+R_{n}\right]}{n}=\frac{\mathbb{E} [R]}{\mathbb{E} [T]} \tag{$\star$.1}
+\end{equation*}
+其中 $\mathbb{E} [T]$ 和 $\mathbb{E} [R]$ 分别表示期望更新间隔时和在一个更新间隔时里的期望酬劳。另一方面，$R_{j}=0, \forall j=1, \ldots, 4 ; \mathbb{E} [R_{i}]=1 / 64, \forall i \geq 5$ ，
+$$
+\begin{aligned}
+	\mathbb{E} [R] & =1+\sum_{j=1}^{4} \mathbb{E}[\text { 在一个更新之后的第 } j \text { 时刻的酬劳 }] \\
+	& =1+\left[0+0+0+\frac{1}{16}+\frac{1}{32}\right]
+\end{aligned}
+$$
+于是利用 $(\star .1)$ 可求出 $\mathbb{E} [T]=64[1+1 / 16+1 / 32]=70$ ．\\
+解法二：设 $T_{2}$ 为首次出现花样$"2"$的时刻，设 $T_{22 \mid 2}$ 为在出现$"2"$条件下等待花样$"22"$出现所需要的额外时间，$T_{22322 \mid 22}$ 为在出现$"22"$条件下花样$"22322"$出现所需要的额外投掷次数，则首次出现花样$"22322"$所需要的时间
+$$
+T_{22322}=T_{2}+T_{22 \mid 2}+T_{22322 \mid 22}
+$$
+其中 $T_{2}, T_{2 \mid 2}$ 和 $T_{22322 \mid 22}$ 相互独立．于是利用（延迟）更新过程的理论可求出
+$$
+\mathbb{E} [T_{2}]=2, \quad \mathbb{E} [T_{22 \mid 2}]=4, \quad \mathbb{E} [T_{22322 \mid 22}]=64
+$$
+所以 $\mathbb{E}[T_{22322}]=2+4+64=70$\\
+
+\end{document}

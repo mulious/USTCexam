@@ -1,0 +1,266 @@
+\documentclass[UTF8]{ctexart}
+%\documentclass{article}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib, float,tikz,graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{calligra} % 添加书法字体包
+
+\title{21实用随机过程期末}
+\author{\textcalligra{NULIOUS}} % 改用书法体
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\begin{document}
+
+\maketitle
+
+
+\noindent 1．（总 8 分）试列表判断如下即几类过程是否具有独立增量性、平稳增量性、Markov 性质：（1）齐次 Poisson 过程；（2）非齐次 Poisson 过程；（3）标准更新过程；（4）布朗运动．\\
+解：（1）\\
+有独立增量性、平稳增量性；并且齐次 Poisson 过程也是一种连续Markov链，当然有Markov 性\\
+（2）\\
+非齐次Poisson 过程失去了平稳增量性，但还有独立增量性和Markov 性\\
+（3）\\
+三个性质都没有\\
+（4）\\
+三个性质都有\\
+
+
+
+\noindent 2．（总 12 分，每小题4分）设 $\{N(t), t \geq 0\}$ 是以独立同分布的随机变量序列 $\left\{X_{n}, n \geq 1\right\}$为间隔的更新过程，其中 $\mathrm{P}\left(X_{1}=1\right)=p, \mathrm{P}\left(X_{1}=0\right)=1-p$ ，其中 $o<p<1$ ．\\
+（1）求于时刻 0 点发生的更新个数随机变量 $N(0)$ 的概率分布；\\
+（2）求于时刻 2 点发生的更新个数随机变量的概率分布；\\
+（3）求 $\lim _{t \rightarrow \infty} \mathbb{E}[N(t)] / t$ ．\\
+解：（1）\\
+必须成功发生一次$X_i=1$过程才能到达时刻1，即为几何分布：
+\[
+N(0)\sim \mathrm{Ge}(p)
+\]
+（2）\\
+必须成功发生三次$X_i=1$过程才能到达时刻3，即为负二项分布：
+\[
+N(3)\sim \mathrm{NB}(3,p)
+\]
+（3）\\
+\[
+\lim _{t \rightarrow \infty} \frac{\mathbb{E}[N(t)]}{t}=\frac{1}{\mathbb{E}[X_1]}=\frac{1}{p}
+\]\\
+
+
+\noindent 3．（总 20 分，每小题 10 分）连续拋掷一枚非均匀硬币，每次抛出正面的概率为 $p \in(0,1)$ ，抛出反面的概率为 $q=1-p$ ．\\
+（1）求直到出现花样＂正、反、正、反、正、反、正＂时抛掷次数的期望．\\
+（2）求直到抛出上述花样时抛出正面的期望次数．\\
+解：（1）\\
+法一：花样问题\\
+$HTHTHTH$有重叠$HTHTH$，$HTHTH$有重叠$HTH$，$HTH$有重叠$H$，$H$没有重叠，则\\
+\[
+\mathbb{E}\left[T_{THTHTHT} \right]=\frac{1}{p^4q^3}+\frac{1}{p^3q^2}+ \frac{1}{p^2q}+ \frac{1}{p}  
+\]
+法二：鞅\\
+设每天都有一个新赌徒开始赌博，他或者输光所有财富或者连赌7天赢下赌局，每个人的开始财富都是1，为了保证赌局公平，如果赌徒赢了，那么他的财富变为原来的$\frac{1}{p}$倍（猜对硬币为正面）或者变为原来的$\frac{1}{q}$倍（猜对硬币为反面），则这个赌局构成一个鞅，记第$N$天第一个赌徒七局都赢，赌徒的盈亏情况如下\\
+\[
+\begin{tabular}{|c|c|}
+	\hline
+	第$i$个赌徒 & 赌徒的盈亏  \\
+	\hline
+	前$N-7$个 & $-(N-7)$（全输）  \\
+	第$N-6$个 & $+(\frac{1}{p^4q^3}-1)$（赢7局）  \\
+	第$N-5$个 & $-1$ （输） \\
+	第$N-4$个 & $+(\frac{1}{p^3q^2}-1)$ （赢5局）  \\
+	第$N-3$个 & $-1$（输）  \\
+	第$N-2$个 & $+(\frac{1}{p^2q}-1)$（赢3局）   \\
+	第$N-1$个 & $-1$ （输） \\
+	第$N$个 & $+(\frac{1}{p}-1)$（赢1局）   \\
+	\hline
+\end{tabular}
+\]
+总盈亏的期望应为0
+\[
+\mathbb{E}\left[(\frac{1}{p^4q^3}-1)+(\frac{1}{p^3q^2}-1)+(\frac{1}{p^2q}-1)+(\frac{1}{p}-1)-(N-7+1+1+1) \right] =0
+\]
+即
+\[
+\mathbb{E}[N]=\frac{1}{p^4q^3}+\frac{1}{p^3q^2}+ \frac{1}{p^2q}+ \frac{1}{p}
+\]
+（2）\\
+记$X_i$满足$P(X_i=1)=p=1-P(X_i=0)$，即$X_i$在抛出正面的时候为1，否则为0；注意到$N$是一个停时，则：
+\[
+\mathbb{E}\left[\sum_{i=1}^N X_i \right]=\mathbb{E}[N]\mathbb{E}[X_1]=p\mathbb{E}[N] 
+\]
+则抛出正面的次数的期望为
+\[
+\mathbb{E}\left[\sum_{i=1}^N X_i \right]=\frac{1}{p^3q^3}+\frac{1}{p^2q^2}+ \frac{1}{pq}+ 1
+\]\\
+
+
+\noindent 4．（总 24 分，每小题 6 分）设 $\mathrm{A} 、 \mathrm{~B}$ 两盒中共装有 $N$ 个编号分别为 $1 、 2 、 \cdots 、 N$ 的小球。考虑如下试验：先从 $N$ 个小球中随机地取出一个小球（每球被取出的概率等可能），再任意指定一个盒子（ A 盒被指定的概率为 $p, \mathrm{~B}$ 盒被指定的概率为 $q=1-p$ ），然后把所取出的小球放入指定的盒子中．如此不停地重复试验．记 $X_{n}$ 为 $n$ 次试验后 A 盒中小球的个数，$X_{0}$ 表示试验之前 A 盒中小球的个数，则 $\left\{X_{n}, n \geq 0\right\}$ 构成一个 Markov 链。\\
+（1）求该 Markov 链转移概率矩阵 $\mathbf{P}$；\\
+（2）试判断此链是否可约？每个状态是否具有常返性？每个状态是否有周期？（其中假定 $0<p<1$ ）\\
+（3）当 $N=3, p=1 / 2$ 时，试求该 Markov 链的平稳分布 $\pi=\left(\pi_{0}, \pi_{1}, \pi_{2}, \pi_{3}\right)$ ；\\
+（4）记 $\mathbf{P}^{(n)}$ 为该 Markov 链的 $n$ 步转移概率矩阵。当 $N=3, p=1 / 2$ 时，求 $\lim _{n \rightarrow \infty} \mathbf{P}^{(n)}$ ，并对结果做出解释。\\
+解：（1）\\
+因为等可能的指定编号，所以编号实际上相当于不存在，只是按照盒子中的小球个数为权重取小球，有转移概率\\
+\[
+\begin{aligned}
+	P_{k,k+1}&=\frac{N-k}{N}p \\
+	P_{k,k-1}&=\frac{k}{N}q \\
+	P_{k,k}&=\frac{k}{N}p+\frac{N-k}{N}q
+\end{aligned}
+\]
+\[
+\mathbf{P}=
+\begin{pmatrix}
+	p & q & 0 & \cdots & 0 & 0 \\
+	 \frac{1}{N}q & \frac{1}{N}p + \frac{N-1}{N}q & \frac{N-1}{N}p & \cdots & 0 & 0 \\
+	\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+	0 & 0 & 0 & \cdots & q & p
+\end{pmatrix}
+\]
+（2）\\
+所有状态都互通，因此不可约；有限状态不可约，则所有状态都正常返；所有状态都非周期$(P_{k,k}>0)$\\
+（3）\\
+此时转移矩阵为\\
+\[
+\mathbf{P'}=
+\begin{pmatrix}
+	\frac{1}{2}  &\frac{1}{2}&0&0\\
+	\frac{1}{6} & \frac{1}{2} &\frac{1}{3} &0\\
+	0&\frac{1}{3} &\frac{1}{2}&\frac{1}{6}\\
+	0&0&\frac{1}{2}&\frac{1}{2}
+\end{pmatrix}
+\]
+平稳方程为：
+$$
+\begin{aligned}
+	\pi_0&=\frac{1}{2}\pi_0+\frac{1}{6}\pi_1\\
+	\pi_1&=\frac{1}{2}\pi_0+\frac{1}{2}\pi_1+\frac{1}{3}\pi_2\\
+	\pi_2&=\frac{1}{3}\pi_1+\frac{1}{2}\pi_2+\frac{1}{2}\pi_3\\
+	\pi_3&=\frac{1}{6}\pi_2+\frac{1}{2}\pi_3
+\end{aligned}
+$$
+\[
+\pi_0+\pi_1+\pi_2\pi_3=1
+\]
+解得
+\[
+\pi_0=\frac{1}{8} \quad \pi_1=\frac{3}{8} \quad \pi_2=\frac{3}{8} \quad \pi_3=\frac{1}{8} \quad
+\]
+（4）\\
+不可约正常返非周期，则极限概率存在，且极限概率等于平稳概率\\
+\[
+\forall i \quad \lim_{n\rightarrow \infty} P_{ij}^n=\frac{1}{\mu_{jj}}=\pi_j
+\]
+那么就有：
+\[
+\lim _{n \rightarrow \infty} \mathbf{P}^{(n)}=
+\begin{pmatrix}
+	\frac{1}{8} &\frac{3}{8}&\frac{3}{8}&\frac{1}{8}\\
+	\frac{1}{8} &\frac{3}{8}&\frac{3}{8}&\frac{1}{8}\\
+	\frac{1}{8} &\frac{3}{8}&\frac{3}{8}&\frac{1}{8}\\
+	\frac{1}{8} &\frac{3}{8}&\frac{3}{8}&\frac{1}{8}
+\end{pmatrix}
+\]\\
+
+
+\noindent 5．（总 24 分，前两小题各 10 分，第 3 小题 4 分）一个修理工照看机器 1 和机器\\
+2．每次修复后，机器 $i$ 保持正常运行，运行时间服从参数（失效率）$\lambda_{i}$ 的指数分布， $i=1,2$ ．当机器 $i$ 失效时，需要进行修理，修理时间服从参数 $\mu_{i}$ 的指数分布．机器 1的修理具有优先权，在机器 1 失效时总是先修理它。例如，若正在修理机器 2 时机器 1 突然失效，则修理工将立刻停止修理机器 2 ，而开始修理机器 1 。\\
+（1）为该题建立有限状态的连续时间 Markov 链，写成相应的转移强调 Q 矩阵；\\
+（2）设 $\lambda_{i}=\mu_{i}=1+i, i=1,2$ ．若系统长时间运行下去，求机器 2 失效的时间占比；\\
+（3）每当两台机器同时处于失效状态时，求同时处于失效状态持续的时长分布．\\
+解：（1）\\
+考虑状态$(x, y)$，$ x, y \in\{0,1\}$ ，0 表示失效状态，1 表示工作状态，这样一共有如下四个状态：$(1,1),(0,1),(1,0)$ 和 $(0,0)$ ，为简化分别记为状态 $0,1,2,3$ ．构造 4 状态的连续时间 Markov 链 $\{X(t), t \geq 0\}$ ，其中 $X(t)$ 表示时刻 $t$ 系统两个机器所处的状态，相应的$\mathbf{Q}$矩阵（对角元为$v_i$，非对角元为$q_{ij}$）为
+$$
+\mathbf{Q}=
+\begin{pmatrix}
+	-\lambda_{1}-\lambda_{2} & \lambda_{1} & \lambda_{2} & 0 \\
+	\mu_{1} & -\lambda_{2}-\mu_{1} & 0 & \lambda_{2} \\
+	\mu_{2} & 0 & -\lambda_{1}-\mu_{2} & \lambda_{1} \\
+	0 & 0 & \mu_{1} & -\mu_{1}
+\end{pmatrix}
+$$
+（2）\\
+极限概率 $\left(P_{0}, P_{1}, P_{2}, P_{3}\right)$ 满足极限概率方程$
+\left(P_{0}, P_{1}, P_{2}, P_{3}\right)=\left(P_{0}, P_{1}, P_{2}, P_{3}\right) \cdot \mathbf{Q}
+$，即\\
+$$
+\begin{aligned}
+	P_0(\lambda_1+\lambda_2)&=P_1\mu_1+P_2\mu_2 \\
+	P_1(\lambda_2+\mu_1)&=P_0\lambda_1 \\
+	P_2(\lambda_1+\mu_2)&=P_0\lambda_2+P_3\mu_1\\
+	P_3\mu_1&=P_1\lambda_2+P_2\lambda_1
+\end{aligned}
+$$
+\[
+P_0+P_1+P_2+P_3=1
+\]
+解得
+\[
+P_0=\frac{5}{24} \quad P_1=\frac{1}{12} \quad P_2=\frac{7}{24} \quad P_3=\frac{5}{12} 
+\]
+则
+\[
+\text{机器2失效的时间占比}= \lim_{t \rightarrow \infty}P(\text{机器2失效})=P_2+P_3=\frac{17}{24}
+\]
+（3）\\
+状态3只能转移到状态2，则\\
+\[
+T\sim \mathrm{Exp}(\mu_1)
+\]\\
+
+
+\noindent 6．（总 12 分，每小题 6 分）设 $\{B(t), t \geq 0\}$ 是一个标准布朗运动，定义随机变量序列 $X_{n}=B^{2}(n)-n, n \geq 1$.\\
+（1）证明 $\left\{X_{n}, n \geq 1\right\}$ 为一个鞅；\\
+（2）求如下的概率
+$$
+P\left(\max _{0 \leq s \leq n} B(s) \geq u_{0.05} \sqrt{n}\right)
+$$
+解：（1）\\
+$$
+\begin{aligned}
+	\mathbb{E}\left[X_{n+1}|X_1,...,X_n \right]&=\mathbb{E}\left[B^2(n+1)-(n+1)|X_1,...,X_n \right]  \\
+	&=\mathbb{E}\left[B^2(n+1)|X_1,...,X_n \right]-(n+1)
+\end{aligned}
+$$
+又
+$$
+\begin{aligned}
+	B^2(n+1)&=\left(B(n+1)-B(n)+B(n) \right)^2\\
+	&=\left(B(n+1)-B(n) \right)^2+B^2(n)+2 \left(B(n+1)-B(n) \right)B(n)
+\end{aligned}
+$$
+由独立增量性和平稳增量性
+\[
+B(n+1)-B(n)\sim N(0,1) \quad B(n)\sim N(0,n)\quad \text{且它们相互独立} 
+\]
+注意给定$X_n$相当于给出了$B^2(n)$的信息
+\[
+\mathbb{E}\left[B^2(n+1)|X_1,...,X_n \right]=1+B^2(n)
+\]
+则
+\[
+\mathbb{E}\left[X_{n+1}|X_1,...,X_n \right]=X_n
+\]
+另外$\mathbb{E}[|X_n|]<\infty$\\
+这就说明了$\left\{X_{n}, n \geq 1\right\}$ 为一个鞅\\
+（2）\\
+$$
+\begin{aligned}
+	P\left(\max _{0 \leq s \leq n} B(s) \geq u_{0.05} \sqrt{n}\right)&=2P\left(B(n)\ge u_{0.05} \sqrt{n} \right)\\
+	&=2P\left(\frac{B(n)}{\sqrt{n}}\ge u_{0.05} \right)\\
+	&=2P\left(\frac{B(n)}{\sqrt{n}}\ge u_{0.05} \right)\\
+	&=  2P\left(N(0,1)\ge u_{0.05} \right)\\
+	&= 0.1   
+\end{aligned}
+$$
+
+
+
+
+
+\end{document}

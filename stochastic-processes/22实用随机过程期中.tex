@@ -1,0 +1,231 @@
+\documentclass[UTF8]{ctexart}
+%\documentclass{article}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib, float,tikz,graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{calligra} 
+
+\title{22实用随机过程期中}
+\author{\textcalligra{NULIOUS}} 
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\begin{document}
+\maketitle
+\noindent 1．（总 16 分，每小题4分）设 $\{N(t), t \geqslant 0\}$ 是速率为 $\lambda=2$ 的齐次 Poisson 过程，以 $S_{n}$表示第 $n$ 个事件发生时刻。\\
+（1）求 $\mathbb{E}[N(4)-N(2) \mid N(1)=5]$ 。\\
+（2）给定 $N(5)=10$ ，求 $N(2)$ 的条件分布。\\
+（3）求 $\mathbb{E}\left[S_{5} \mid N(1)=2\right]$ 。\\
+（4）求 $\operatorname{Cov}(N(6), N(10))$ 。\\
+解：（1）由独立增量性
+$$
+\mathbb{E}[N(4)-N(2) \mid N(1)=5]=\mathbb{E}[N(4)-N(2)]=\mathbb{E}[\mathrm{P}(2\lambda)]=4
+$$
+（2）给定$N(5)=10$，则前$10$个事件的发生时间$S_1,...,S_n \sim (U_{(1)},...,U_{(n)})$，这里$(U_{(1)},...,U_{(n)})$为$U_1,...,U_n\stackrel{i.i.d.}{\sim}\mathrm{U}(0,5)$，每个随机变量落入区间$(0,2)$的概率为$\frac{2}{5}$，则
+\[
+N(2)\mid N(5)=10 \sim \mathrm{B}\left (10,\frac{2}{5}\right )
+\]
+（3）到达时间间隔
+\[
+X_3,X_4,X_5\stackrel{i.i.d}{\sim} \mathrm{Exp}(\lambda)
+\]
+则
+\[
+S_{5} \mid N(1)=2 \sim 1+X_3+X_4+X_5
+\]
+那么
+\[
+\mathbb{E}\left[S_{5} \mid N(1)=2\right]=1+\frac{3}{\lambda}=\frac{5}{2}
+\]
+（4）证明一个更一般的结论：
+\[
+\operatorname{Cov}\left(N(t),N(s) \right)=\lambda \min \{s,t\} 
+\]
+下面设$s\le t$\\
+证一：
+\begin{align*}
+	\operatorname{Cov}\left(N(t),N(s) \right) &= \operatorname{Cov}\left(N(t)-N(s),N(s) \right)+\operatorname{Cov}\left(N(s),N(s) \right)   \\
+	 &\stackrel{\text{独立增量性}}{=}0+\operatorname{Var}\left(N(s) \right) \\
+	 &=\lambda s
+\end{align*}
+证二：
+\[
+\operatorname{Cov}\left(N(t),N(s) \right)=\mathbb{E}\left[N(t)N(s) \right]-\mathbb{E}[N(t)]\mathbb{E}[N(s)] 
+\]
+且有
+\[
+\mathbb{E}[N(t)]=\lambda t \quad \mathbb{E}[N(s)]=\lambda s
+\]
+\begin{align*}
+	\mathbb{E}\left[N(t)N(s) \right] & =\mathbb{E}\left[N(s)\left(N(s)+\left(N(t)-N(s) \right)  \right)  \right] \\
+	 & \stackrel{\text{独立增量性}}{=} \mathbb{E}\left[N^2(s) \right]+\mathbb{E}[N(s)]\mathbb{E}[N(t)-N(s)]\\
+	 &= \lambda^2 s^2+\lambda s + \lambda s \cdot \lambda(t-s)\\
+	 &=\lambda s +\lambda^2 st
+\end{align*}
+因此
+\[
+\operatorname{Cov}\left(N(t),N(s) \right)=\lambda s
+\]
+特别的，对本题有
+\[
+\operatorname{Cov}(N(6),N(10))=12
+\]\\
+
+
+
+\noindent 2．（总 25 分，每小题 5 分）假设男性顾客和女性顾客分别以速率 $\lambda_{1}$ 和 $\lambda_{2}$ 独立地进入某个酒店，而每个男顾客和女顾客会购物的概率分别为 $p_{1}$ 和 $p_{2}$ ，且与其他人相互独立。其中， $p_{1}>0, p_{2}>0$ 。\\
+（1）设 $N(t)$ 表示到时刻 $t$ 为止会购物顾客的人数，问 $\{N(t), t \geqslant 0\}$ 为一个 Poisson 过程吗？若是，则写出其速率；若否，请说明理由。\\
+（2）试求第 1 位会购物的顾客是女性的概率。\\
+（3）试求在第 1 个男顾客进入酒店之前已进入该酒店的女性顾客数的分布律。\\
+（4）试求在第 1 个会购物的男顾客进入酒店之前已进入该酒店的女性顾客数的分布律。\\
+（5）假设 $\lambda_{2}=8, p_{2}=\frac{1}{2}$ ，且会购物的女性顾客以概率 $\frac{1}{4}$ 采购 1 元的商品，以概率 $\frac{3}{4}$ 采购 2 元的商品。以 $S(t)$ 表示时刻 $t$ 之前到达的女性顾客采购的商品总金额，求 $\mathrm{P}(S(1)=4)$ 。\\
+解：（1）是Poisson过程，且速率为$p_1\lambda_1+p_2\lambda_2$\\
+结论来自分类Poisson过程（购物的男、女顾客分别服从参数为$p_1\lambda_1$和$p_2\lambda_2$的独立的Poisson过程）和独立Poisson过程的可加性\\
+可加性来自两个独立的指数分布有性质：
+\[
+X_1 \sim \mathrm{Exp}(\lambda_1) \quad X_2 \sim \mathrm{Exp}(\lambda_2) \quad 
+\min\{X_1,X_2\} \sim \mathrm{Exp}(\lambda_1+\lambda_2)
+\]
+及Poisson过程的达到时间间隔定义方式\\
+（2）独立的指数分布有性质：
+\[
+X_1 \sim \mathrm{Exp}(\lambda_1) \quad X_2 \sim \mathrm{Exp}(\lambda_2) \quad P(X_1<X_2)=\frac{\lambda_1}{\lambda_1+\lambda_2}
+\]
+上式来自全概率公式：
+\[
+P(X_1<X_2)=\int P(X_1<x\mid X_2=x)P(X_2=x)dx
+\]
+则
+\[
+P(\text{第一位购物顾客是女})=\frac{p_2\lambda_2}{p_1\lambda_1+p_2\lambda_2}
+\]
+（3）由指数分布的无记忆性，无论已经有几个女顾客进入，下一个进入的女顾客的概率仍为$\frac{\lambda_2}{\lambda_1+\lambda_2}$\\
+设$N$为在第一个男顾客进入前进入的女顾客数，则$N+1\sim \mathrm{Ge}\left( \frac{\lambda_1}{\lambda_1+\lambda_2}\right) $，也就是
+	\[
+	P(N=k)=\left(  \frac{\lambda_1}{\lambda_1+\lambda_2}\right)\left( \frac{\lambda_2}{\lambda_1+\lambda_2}\right)^k
+	\]
+（4）与上一问基本相同，记$N'$为第 1 个会购物的男顾客进入酒店之前已进入该酒店的女性顾客数，则$N'+1\sim \mathrm{Ge}\left( \frac{p_1\lambda_1}{p_1\lambda_1+\lambda_2}\right) $，即
+\[
+	P(N'=k)=\left(  \frac{p_1\lambda_1}{p_1\lambda_1+\lambda_2}\right)\left( \frac{\lambda_2}{p_1\lambda_1+\lambda_2}\right)^k
+\]
+（5）$S(1)=4$有以下情况：\\
+i.4个均买1元商品\\
+ii.买2个2元商品\\
+iii.买1个2元商品，买2个1元商品\\
+记购物的女顾客构成Poisson过程$N(t)$，由全概率公式
+\[
+P(S(1)=4)=P(N(1)=2)\left( \frac{3}{4}\right)^2+P(N(1)=4)\left(\frac{1}{4} \right)^4+P(N(1)=3)\dbinom{3}{1} \left( \frac{3}{4}\right) \left(\frac{1}{4} \right)^2 
+\]
+最后代入$N(1)\sim \mathrm{P}(4)$即可\\
+
+
+
+\noindent 3．（总 20 分，每小题 5 分）某公司的一部售后服务电话的呼叫次数服从速率为 $\lambda$ 的 Poisson过程，通话时间 $\left\{X_{n}, n \geqslant 1\right\}$ 是一列独立随机变量，且均服从参数为 $\mu$ 的指数分布。假设这部售后服务电话在通话时，其它电话打不进来，而空闲时一定会接听呼叫电话。以 $N(t)$ 表示到时刻 $t$ 为止电话打进来的次数。（呼叫速度单位：次／分钟。通话时间单位：分钟。）\\
+（1）问 $\{N(t), t \geqslant 0\}$ 是何种随机过程？请说明理由。\\
+（2）试求一次通话时没能打进来的电话的平均次数。\\
+（3）对充分大的 $t$ ，试求时刻 $t$ 电话处于通话中的概率。\\
+（4）试求下列极限：
+$$
+\lim _{n \rightarrow \infty} \frac{\mathbb{E}[N(t)]}{t}
+$$\\
+解：（1）$\left\{X_{n}, n \geqslant 1\right\}$为更新过程，每接听一次电话视为一次更新，因为指数分布的无记忆性，可以视为通话时相当于没有人打电话\\
+（2）设一次通话时间为$T$，未接的电话数为$N$，则：
+\[
+\mathbb{E}[N]=\mathbb{E}\left[\mathbb{E}[N\mid T] \right]=\mathbb{E}[\mathrm{Poi}(T)]=\mathbb{E}\left[\lambda T \right]  =\frac{\lambda}{\mu}
+\]
+（3）考虑交替更新过程，记接听电话时系统为开，则
+\[
+\lim_{t\rightarrow \infty}P(t\text{时刻处于通话状态})=\frac{\mathbb{E}\left[\text{一次接听时间} \right] }{\mathbb{E}\left[\text{一次接听时间} \right]+\mathbb{E}\left[\text{一次空闲时间} \right]}
+\]
+又
+\[
+\mathbb{E}\left[\text{一次接听时间} \right]=\frac{1}{\mu} \quad \mathbb{E}\left[\text{一次空闲时间}\right] =\frac{1}{\lambda}
+\]
+最后
+\[
+\lim_{t\rightarrow \infty}P(t\text{时刻接听})=\frac{\lambda}{\lambda+\mu}
+\]
+（4）
+$$
+\lim _{n \rightarrow \infty} \frac{\mathbb{E}[N(t)]}{t}=\lim _{n \rightarrow \infty} \frac{m(t)}{t}=\frac{1}{\mathbb{E}[X]}
+$$
+其中
+\[
+\mathbb{E}[X]=\frac{1}{\lambda}+\frac{1}{\mu}
+\]
+则
+\[
+\lim _{n \rightarrow \infty} \frac{\mathbb{E}[N(t)]}{t}=\frac{\lambda \mu}{\lambda+\mu}
+\]\\
+
+
+\noindent 4．（总 24 分，每种解法各 12 分）现考虑一系列独立重复试验，每次试验抛掷一枚均匀的骰子，以 $W_{n}$ 表示第 $n$ 次抛骰子掷出的点数。试验一直进行到连续抛出四个点数同奇数或者同偶数为止。试用两种不同的方法求抛掷次数 $T$ 的期望。\\
+解一：花样问题\\
+把问题约化成投掷一个均匀硬币，连续出4次正面/反面的所需次数的期望，显然这两个的次数的期望应该是一样的，因此总次数的期望应该是连续4次正面的次数的期望的一半，下面求连续4次正面的次数的期望\\
+$HHHH$有重叠$HHH$，$HHH$有重叠$HH$，$HH$有重叠$H$，$H$没有重叠
+\begin{align*}
+	\mathbb{E}[T_{HHHH}] & =2^4+2^3+2^2+2 \\
+	&=30
+\end{align*}
+则
+\[
+\mathbb{E}[T]=\frac{\mathbb{E}[T_{HHHH}]}{2}=15
+\]
+解二：用条件期望递推\\
+仍然求连续4次正面的次数的期望，对连续3次投掷出正面后的下一次取条件
+\[
+	\mathbb{E}[T_{HHHH}\mid T_{HHH}=n] = \frac{1}{2}(n+1)+\frac{1}{2}\left(n+1+\mathbb{E}[T_{HHHH}] \right)
+\]  
+进一步地
+\[
+\mathbb{E}[T_{HHHH}]=2\mathbb{E}\left[T_{HHH} \right]+2 
+\]
+递推下去，有
+\[
+\mathbb{E}[\text{连续投掷出}n\text{个正面需要的次数}]=\sum_{k=1}^n 2^k
+\]
+特别的
+\[
+\mathbb{E}[T_{HHHH}]=2^4+2^3+2^2+2=30
+\]\\
+
+
+
+\noindent 5．（总 15 分，第 1 小题 5 分，第二小题每种解法各 5 分）现考虑独立重复试验，每次试验抛掷一枚均匀骰子，试验一直进行到抛出点数 6 为止。记 $N$ 为抛掷骰子的总次数，$S$ 为到试验结束时累计抛出的点数之和。\\
+（1）当 $n>1$ 时，求 $\mathbb{E}[S \mid N=n]$ 。\\
+（2）试用两种方法求 $\mathbb{E}[S]$\\ 
+解：（1）注意前$n-1$次只能抛出1-5的点数，每个点数的概率为$\frac{1}{5}$，则
+\begin{align*}
+	\mathbb{E}[S \mid N=n] &= (n-1)\mathbb{E}[X\mid X\ne 6]+6 \\
+	 & =3n+3
+\end{align*}
+（2）\\
+解一：利用（1）中的条件期望
+\[
+\mathbb{E}[S]=\mathbb{E}[\mathbb{E}[S\mid N]]=3\mathbb{E}[N]+3
+\]
+又
+\[
+N \sim \mathrm{Ge}\left(\frac{1}{6} \right) \quad \mathbb{E}[N]=6 
+\]
+最后
+\[
+\mathbb{E}[S]=21
+\]
+解二：利用$Wald$方程，$N$为停时，这时视前$n-1$个骰子为6面的，记$X_i'$为第$i$次投掷的点数
+\[
+\mathbb{E}[X_i']=3.5
+\]
+最后
+\[
+\mathbb{E}\left[\sum_{i=1}^N X_i' \right]=\mathbb{E}[N] \mathbb{E}[X_i']=21
+\]
+
+
+\end{document}

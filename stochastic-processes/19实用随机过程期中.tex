@@ -1,0 +1,171 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib,float,tikz}
+\usepackage{caption,subcaption,calligra}
+
+\title{19实用随机过程期中考试}
+\author{\calligra{NULIOUS}}
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\begin{document}
+\maketitle
+\noindent 1.（16 分）一个盒子中 $n+m$ 个小球，其中 $n$ 个红球，$m$ 个黑球．现依次不放回地从盒子中取球，以 $X$记在首次取得黑球前取出的红球个数．求 $\mathbb{E} [X]$ ．\\
+解一：用条件期望递推\\
+记有$n$个红球和$m$个黑球的盒子首次取得黑球前取出的红球个数为$X(n,m)$，对第一个球的颜色取条件\\
+\begin{align*}
+	\mathbb{E}[X(n,m)] & =\frac{n}{n+m}\left( \mathbb{E}[X(n-1,m)]+1 \right)+\frac{m}{n+m}\cdot 0 \\
+	&=\frac{n}{n+m}\left( \mathbb{E}[X(n-1,m)]+1 \right)
+\end{align*}
+并且有边界条件
+\[
+\mathbb{E}[X(0,m)]=0
+\]
+递推可以得到
+\[
+\mathbb{E}[X(n,m)]=\frac{n}{m+1}
+\]
+解二：给$n$个红球编号$1,...,n$，记
+\[
+\mathbb{I}_k=
+\begin{cases}
+	1  &  \text{红球k在所有黑球前} \\
+	0  &  \text{其他}
+\end{cases}
+\]
+则$\mathbb{I}_k$同分布，且一个红球可以插空地放在每个黑球的两边，也就是有$m+1$个位置可以选择，则
+\[
+\mathbb{E}[\mathbb{I}_k]=P(\mathbb{I}_k=1)=\frac{1}{m+1}
+\]
+那么
+\[
+\mathbb{E}[X(n,m)]=\mathbb{E}\left[\sum_{k=1}^n  \mathbb{I}_k \right]=\frac{n}{m+1} 
+\]\\
+
+
+
+
+
+\noindent 2．（36 分）一个商店在上午 8：00 开门，下午 5：00 关门．从 8：00 到 10：00 顾客以每小时 4 人速率到达，从 10：00 到 12：00 顾客以每小时 8 人速率到达，从 12：00 到下午 2：00顾客到达率稳定地从 12：00 的每小时 8 人增加到下午 2：00 的每小时 10 人，而在下午2：00 到 5：00 顾客到达率稳定地从下午 2：00 的每小时 10 人下降到下午 5：00 的每小时 4 人。\\
+（1）问顾客的到达规律可以用什么样的概率模型来描述？（要求详细描述该模型）\\
+（2）求上午 8：30 到 9：00 之间没有顾客到达的概率．\\
+（3）求上午 8：30 到 9：30 之间有 3 位顾客到达，而下午 1：30 至 2：30 之间有 6 位顾客到达的概率．\\
+（4）求这家商店平均每天到达的顺客数．\\
+（5）已知某天上午 8：00 到 12：00 之间有 20 位顾客到达，求该天下午 1：00 至 2：00 之间有 10 位顾客到达的概率．\\
+（6）假定每位到达的顾客以概率 0.6 为男性，以概率 0.4 为女性．求某天上午 8：00 到 10：00 之间有 5 位男顾客到达，且上午10：00 至12：00 之间有 10 位女顾客到达的概率．\\
+解：（1）这是一个非齐次Poisson过程$N(t)$，记上午8点为$t=0$，则强度函数为
+\[
+\lambda(t)=
+\begin{cases}
+	4  &  0\le t\le 2 \\
+	8  &  8 <t\le 4 \\
+	t+4 &  4<t\le 6\\
+	-2t+22 & 6<t\le 9
+\end{cases}
+\]
+（2）$N(1)-N(0.5)\sim \mathrm{P}(2)$，则
+\[
+P(N(1)-N(0.5)=0)=e^{-2}
+\]
+（3）由独立增量性，这两个事件是独立的，又
+\begin{align*}
+	N(6.5)-N(5.5) & \sim \mathrm{P}\left(\int_{5.5}^{6.5} \lambda(t)dt \right)  \\
+	& = \mathrm{P}(9.625)\\
+	N(1.5)-N(0.5)&\sim \mathrm{P}(4)
+\end{align*}
+最后
+\begin{align*}
+	P(N(1.5)-N(0.5)=3,N(6.5)-N(5.5)=6) & =P(N(1.5)-N(0.5)=3)P(N(6.5)-N(5.5)=6) \\
+	& = \frac{4^3 e^{-4}}{3!}\cdot \frac{9.625^6 e^{-9.625}}{6!}\\
+	&= e^{-13.625}\frac{2(9.625)^6}{135}
+\end{align*}
+（4）$N(9)\sim \mathrm{P}\left(\int_{0}^{9} \lambda(t)dt \right)=\mathrm{P}(63) $，则
+\[
+\mathbb{E}[N(9)]=63
+\]
+（5）由独立增量性，两个事件独立，又
+\[
+N(6)-N(5)\sim \mathrm{P}\left(\int_{5}^{6}\lambda(t)dt \right)=\mathrm{P}(9.5) 
+\]
+最后
+\[
+\text{所求}=P(N(6)-N(5)=10)=\frac{e^{-9.5}(9.5)^{10}}{10!}
+\]
+（6）由分类Poisson过程，两事件独立，并记$X_1$为前一事件，$X_2$为后一事件，则
+\[
+N(2)\sim \mathrm{P}(8) \quad X_1\sim \mathrm{P}(4.8)
+\]
+\[
+N(4)-N(2)\sim \mathrm{P}(16) \quad X_2\sim \mathrm{P}(6.4)
+\]
+最后
+\begin{align*}
+	P(X_1=5,X_2=10) &= P(X_1=5)P(X_2=10) \\
+	 & =\frac{(4.8)^5 (6.4)^10}{5!10!} e^{-11.2}
+\end{align*}\\
+
+
+
+\noindent 3．（14 分）设 $\left\{X_n, n \geq 1\right\}$ 为独立同分布的随机变量序列，共同分布为参数 $\lambda$ 的指数分布，$N$ 为几何分布随机变量，独立于 $\left\{X_n, n \geq 1\right\}$ ，其中 $\mathrm{P}(N=n)=p(1-p)^{n-1}$ ， $n \geq 1$ ．试基于 Poisson 过程的相关理论求 $S=\sum\limits_{k=1}^N X_k$ 的分布．\\
+解：考虑几何分布的意义：第一次投掷出正面的硬币所需的总投掷数\\
+设$X_k$为每次投掷的时间间隔，则$S=\sum\limits_{k=1}^N X_k$即为直到第一次投掷出正面所需的总时间\\
+将Poisson过程分类，则投出正面的过程$N_1(t)$速率为$\lambda p$,
+投出反面的过程$N_2(t)$速率为$\lambda (1-p)$\\
+那么$S$就是$N_1(t)$中第一个时间间隔，即
+\[
+S \sim \mathrm{Exp}(\lambda p)
+\]\\
+
+
+
+
+
+\noindent 4．（14 分）设 $\{N(t), t \geq 0\}$ 是强度 $\lambda=10$ 的齐次 Poisson 过程，以 $S_i$ 记该过程的第 $i$ 个事件发生时刻，求 $\mathbb{E}\left[S_i \mid N(t)=n\right]$ ．\\
+解：i.$i \le n$时\\
+\[
+\mathbb{E}[S_i\mid N(t)=n]=\mathbb{E}[U_{(i)}]
+\]
+这里$U_{(i)}$为$U_1,...,U_n\stackrel{i.i.d.}{\sim} \mathrm{U}(0,t)$的次序统计量\\
+则
+\[
+\mathbb{E}[S_i\mid N(t)=n]=\mathbb{E}[U_{(i)}]=\frac{i}{n+1}t
+\]
+\textbf{RK}：\\
+$$
+\mathbb{E}[U_{(i)}]=\int_{0}^{t} \dbinom{n}{1} \dbinom{n-1}{i-1} x\left(\frac{x}{t} \right)^{i-1} \left( 1-\frac{x}{t}\right)^{n-i} \frac{1}{t} dx=  \frac{i}{n+1}t
+$$
+ii.$i<n$时
+\[
+\mathbb{E}[S_i\mid N(t)=n]=\mathbb{E}[t+X_{n+1}+\cdots+X_i]
+\]
+其中$X_i$表示时间间隔，且
+\[
+X_{n+1},...,X_n \stackrel{i.i.d.}{\sim} \mathrm{Exp}(\lambda)\sim \mathrm{Exp}(10)
+\]
+则
+\[
+\mathbb{E}[S_i\mid N(t)=n]=t+\frac{i-n}{10}
+\]\\
+
+
+
+
+\noindent 5．（20 分）观察一列独立同分布的离散随机变量 $W_1, W_2, \ldots$ ，等待花样$" 010101 "$的发生．设
+$$
+\mathrm{P}\left(W_1=0\right)=\frac{1}{4}, \quad \mathrm{P}\left(W_1=1\right)=\frac{1}{2}, \quad \mathrm{P}\left(W_1=2\right)=\mathrm{P}\left(W_1=3\right)=\frac{1}{8}
+$$
+求等待花样$"010101"$首次发生所需要的期望时间．\\
+解：花样问题\\
+010101有重叠0101，0101有重叠01，01没有重叠，则\\
+\begin{align*}
+	\mathbb{E}[T_{010101}] & =P(010101)^{-1}+P(0101)^{-1}+P(01)^{-1} \\
+	& =4^3 2^3+4^2 2^2+4 \cdot 2\\
+	&=584
+\end{align*}
+
+\end{document}

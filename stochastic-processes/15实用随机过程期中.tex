@@ -1,0 +1,103 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib,float,tikz}
+\usepackage{caption,subcaption,calligra}
+
+\title{15实用随机过程期中考试}
+\author{\calligra{NULIOUS}}
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\begin{document}
+\maketitle
+\noindent 1．设 $x_{1}, \ldots, x_{n}$ 为正常数，请用概率的方法证明
+$$
+\frac{1}{n} \sum_{i=1}^{n} x_{i} \geq\left(\prod_{i=1}^{n} x_{i}\right)^{1 / n}
+$$\\
+证：设 $X$ 为一个随机变量，满足 $\mathrm{P}\left(X=\log x_{i}\right)=1 / n, i=1, \ldots, n$ ．对 $\phi(x)=e^x$应用 Jensen 不等式 $\mathbb{E}_{\phi}[X] \geq \phi(\mathbb{E} [X])$ ，立得所欲证不等式，\\
+
+
+
+\noindent 2．设 $X_{1} \sim \operatorname{Exp}\left(\lambda_{1}\right), X_{2} \sim \operatorname{Exp}\left(\lambda_{2}\right), X_{3} \sim \operatorname{Exp}\left(\lambda_{3}\right)$ 且三个随机变量相互独立，其中 $\lambda_{1}>0, \lambda_{2}>0, \lambda_{3}>0$ ．求 $\mathrm{P}\left(X_{3}>X_{2}, X_{1}+X_{2}>X_{3}\right)$ ．\\
+解：
+$$
+\begin{aligned}
+	P\left(X_{3}>X_{2}, X_{1}+X_{2}>X_{3}\right) & =\mathbb{E}\left[P\left(X_{3}>X_{2}, X_{1}+X_{2}>X_{3} \mid X_{1}, X_{2}\right)\right] \\
+	& =\int_{0}^{\infty} \int_{0}^{\infty} \lambda_{1} \lambda_{2} e^{-\lambda_{1} x-\lambda_{2} y} \int_{y}^{x+y} \lambda_{3} e^{-\lambda_{3} z} d z \\
+	& =\frac{\lambda_{2} \lambda_{3}}{\left(\lambda_{1}+\lambda_{3}\right)\left(\lambda_{2}+\lambda_{3}\right)}
+\end{aligned}
+$$\\
+
+
+
+
+\noindent 3．考虑一个 $M / G / \infty$ 随机服务系统，顾客到达系统的规律可以用齐次 Poisson 过程米描述，单位时间内平均到达的顾客数为 1 ，每个顾客需要服务员提供的服务时间是独立同分布的，其共同分布的概率密度函数为 $g(u)=2(1+u)^{-3}, u \geq 0$ ，系统有无穷多个服务员（即顾客到达系统后立即能得到服务），以 $A_{t}$ 表示时刻 $t$ 系统中处于工作状态的服务员个数．\\
+（1）已知时间段 $(1,10]$ 到达了 2 位顾客，求时间段 $(15,20]$ 到达 2 位顾客的概率；\\
+（2）求 $A_{5}$ 的概率分布；\\
+（3）求 $\operatorname{Cov}\left(A_{4}, A_{5}\right)$ ．\\
+解：顾客到达过程 $\{N(t)\}$ 为 $\operatorname{HPP}(1)$ ，即强度参数 $\lambda=1$ ．\\
+（1）利用 HPP 的独立增量性，得
+$$
+\mathrm{P}(N(20)-N(15)=2 \mid N(10)-N(1)=2)=\mathrm{P}(N(20)-N(15)=2)=12.5 e^{-5}
+$$
+（2）+（3）记服务时间生存函数为 $\bar{G}(u)=(1+u)^{-2}$ ，把到达的顾客分为以下 3 类：\\
+I 型：于 $(0,4]$ 到达，且于时刻 5 未被服务完毕；\\
+II型：于 $(0,4]$ 到达，且于 $(4,5]$ 内被服务完毕；\\
+III 型：于 $(4,5]$ 到达，且于时刻 5 木被服务完毕．\\
+具体分类如下：于任意时刻 $s$ 到达的顾客，以概率 $p_{i}(s)$ 被划入第 $i$ 型顾客，$i=1,2,3$ ，\\
+其中
+$$
+\begin{gathered}
+	p_{1}(s)=\left\{\begin{array}{ll}
+		\bar{G}(5-s), & s \leq 4 \\
+		0, & s>4
+	\end{array} \quad p_{2}(s)= \begin{cases}\bar{G}(4-s)-\bar{G}(5-s), & s \leq 4 \\
+		0, & s>4\end{cases} \right. \\
+	p_{3}(s)= \begin{cases}\bar{G}(5-s), & 4<s \leq 5 \\
+		0, & s \leq 4 \text { 或 } s>5\end{cases}
+\end{gathered}
+$$
+以 $N_{i}$ 记 $(0,5]$ 时段第 $i$ 型顾客的总数，则 $A_{5}=N_{1}+N_{3}, A_{4}=N_{1}+N_{2}$ ．由 Poisson过程的抽样性质知：$N_{1}, N_{2}, N_{3}$ 相耳独立，且皆服从 Poisson 分布，对应的 Poisson 参数分别为
+$$
+\begin{aligned}
+	& \lambda_{1}=\lambda \int_{0}^{5} p_{1}(s) d s=1 / 3 \\
+	& \lambda_{2}=\lambda \int_{0}^{5} p_{2}(s) d s=7 / 15 \\
+	& \lambda_{3}=\lambda \int_{0}^{5} p_{3}(s) d s=1 / 2
+\end{aligned}
+$$
+于是 $$A_{5} \sim \operatorname{Poisson(5/6)} \quad  \operatorname{Cov}\left(A_{i}, A_{5}\right)=\operatorname{Var}\left(N_{1}\right)=1 / 3$$\\
+
+
+
+
+\noindent 4．假设顾客到达银行的规律可用强度参数 $\lambda=2$ 的齐次 Poisson 过程来描述，每位到达的顾客以概率 $1 / 2$ 为男性．已知在前 10 个单位时间里有 100 个顾客到达该银行，问在该时间段到达该银行的女性顾客平均有多少？\\
+解：在该时间段到达该银行的女性顾客$N\sim \mathrm{B}\left(100,\frac{1}{2} \right) $\\
+则
+\[
+\mathbb{E}[N]=50
+\]\\
+
+
+
+
+\noindent 5．设 $\left\{X_{n}, n \geq 1\right\}$ 为独立同分布的随机变量序列，共同分布为参数 $\lambda$ 的指数分布，$N$为几何分布随机变量，独立于 $\left\{X_{n}, n \geq 1\right\}$ ，其中
+$$
+\mathrm{P}(N=n)=p(1-p)^{n-1}, \quad n \geq 1
+$$
+求 $S=\sum\limits_{k=1}^{N} X_{k}$ 的分布，并基于齐次 Poisson 过程的相关理论加以解释\\
+解：考虑几何分布的意义：第一次投掷出正面的硬币所需的总投掷数\\
+设$X_k$为每次投掷的时间间隔，则$S=\sum\limits_{k=1}^N X_k$即为直到第一次投掷出正面所需的总时间\\
+将Poisson过程分类，则投出正面的过程$N_1(t)$速率为$\lambda p$,
+投出反面的过程$N_2(t)$速率为$\lambda (1-p)$\\
+那么$S$就是$N_1(t)$中第一个时间间隔，即
+\[
+S \sim \mathrm{Exp}(\lambda p)
+\]\\
+
+	
+\end{document}

@@ -1,0 +1,169 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{graphicx,amsfonts,amsmath,mathrsfs,amssymb,amsthm,url,color}
+\usepackage{fancyhdr,indentfirst,bm,enumerate,natbib,float,tikz}
+\usepackage{caption,subcaption,calligra}
+
+\title{20实用随机过程期中}
+\author{\calligra{NULIOUS}}
+\date{}
+
+\textheight 23cm
+\textwidth 16.5cm
+\topmargin -1.2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\begin{document}
+\maketitle
+	
+\noindent 1.（20分）现有$m$个偶数和$n$个奇数，$m \geq 1, n \geq 1$。现随机地将这$m+n$个数从左到右排成一行（位置编号分别为$1,2,\ldots,m+n$），记$W$为该序列中从左到右首次出现偶数的位置编号，求$\mathbb{E}[W]$（若给出两种解法，可以另加5分）。\\
+解一：用条件期望递推\\
+记$m$个偶数和$n$个奇数的序列首次出现偶数的位置编号为$W(m,n)$，对第一个数的奇偶性取条件
+\[
+\mathbb{E}[W(m,n)]= \frac{m}{m+n}\cdot 1+\frac{n}{m+n}\left(\mathbb{E}[W(m,n-1)]+1 \right)=1+\frac{n}{m+n}\mathbb{E}[W(m,n-1)] 
+\]
+再由边界条件$\mathbb{E}[W(m,0)]=1$递推有
+\[
+\mathbb{E}[W(m,n)]=\frac{m+n+1}{m+1}
+\]
+解二：给$n$个奇数编号$1,...,n$，记
+\[
+\mathbb{I}_k=
+\begin{cases}
+	1  &  \text{第k个奇数在所有偶数前} \\
+	0  &  \text{其他}
+\end{cases}
+\]
+则$\mathbb{I}_k$同分布，且一个奇数可以插空地放在每个偶数的两边，也就是有$m+1$个位置可以选择，则
+\[
+\mathbb{E}[\mathbb{I}_k]=P(\mathbb{I}_k=1)=\frac{1}{m+1}
+\]
+那么
+\[
+\mathbb{E}[W(n,m)]=1+\mathbb{E}\left[\sum_{k=1}^n  \mathbb{I}_k \right]=1+\frac{n}{m+1}=\frac{m+n+1}{m+1} 
+\]\\
+
+	
+\noindent 2. （20分）假设一个系统有两个服务台，服务台$i$给顾客提供的服务时间服从参数$\lambda_i$的指数分布，$i=1,2$。采用先到先服务、后到排队的规则，当顾客A到达系统时，发现顾客B和C各自占据一个服务台，求顾客A在系统中滞留的期望时间。\\
+解：利用指数分布的性质
+\[
+X_1\sim \mathrm{Exp}(\lambda_1) \quad X_2\sim \mathrm{Exp}(\lambda_2) 
+\]
+则有
+\[
+P(X_1<X_2)=\frac{\lambda_1}{\lambda_1+\lambda_2}
+\]
+和
+\[
+\min\{X_1,X_2\} \sim \mathrm{Exp}(\lambda_1+\lambda_2)
+\]
+设顾客$B$与$C$的服务时长分别为$X_1$与$X_2$，则
+\begin{align*}
+	\mathbb{E}\left[\text{顾客A在系统中滞留的时间} \right]  &= \mathbb{E}\left[\text{顾客A在系统中滞留的时间}\mid \text{B比C先走} \right]P(\text{B比C先走})\\
+	&+\mathbb{E}\left[\text{顾客A在系统中滞留的时间}\mid \text{C比B先走} \right]P(\text{C比B先走}) \\
+	& = \left(\frac{1}{\lambda_1+\lambda_2}+\frac{1}{\lambda_1} \right)\cdot \frac{\lambda_1}{\lambda_1+\lambda_2}+ \left(\frac{1}{\lambda_1+\lambda_2}+\frac{1}{\lambda_2} \right)\cdot \frac{\lambda_2}{\lambda_1+\lambda_2}\\
+	&=\frac{3}{\lambda_1+\lambda_2}
+\end{align*}\\
+
+
+
+\noindent 3. （24分）一个元件易于受到外界的冲击的影响，冲击有两种类型。一型冲击按平均单位时间2次的强度发生，每个冲击将概率1地使得元件失效；二型冲击按平均单位时间8次的强度发生，每个冲击将概率$1/2$地使得元件失效。元件一旦失效，瞬间用同型元件更换，更换时间不计，两种冲击产生过程独立。记$N(t)$为$(0,t]$时间段元件失效的次数。\\
+（1）所有的冲击发生规律可以用什么样的概率模型来描述？（要求详细描述）\\
+（2）$\{N(t), t \geq 0\}$是什么样的概率模型？（要求详细描述）\\
+（3）已知元件在$(10,20]$时段失效6次，求时段$(30,40]$一型冲击发生2次的概率。\\
+（4）给定元件在$(10,20]$时段失效6次，求该时段内一型和二型冲击期望发生的次数。\\
+解：（1）I型冲击到达的过程是速率为2的Poisson过程$N_1'(t)$；II型冲击到达的过程是速率为8的Poisson过程$N_2'(t)$，且它们独立；由于Poisson过程的独立可加性，所有冲击到达的过程是速率为10的Poisson过程$N'(t)$\\
+（2）由分类Poisson过程，I型冲击导致元件失效的过程是速率为2的Poisson过程$N_1(t)$；II型冲击导致元件失效的过程是速率为4的Poisson过程$N_2(t)$，且它们独立；总失效数$N(t)$是速率为6的Poisson过程\\
+（3）由于独立增量性
+\[
+N_1'(40)-N_1'(30)\mid N(20)-N(10)=6 \sim N_1'(40)-N_1'(30) \sim \mathrm{P}(20)
+\]
+则
+\[
+P(N_1'(40)-N_1'(30)\mid N(20)-N(10)=6)=P(N_1'(40)-N_1'(30))=200e^{-20}
+\]
+（4）先证明一个结论\\
+设$X\sim \mathrm{P}(\lambda)\quad Y\sim \mathrm{P}(\mu)$且它们相互独立，则对$Z=X+Y$有
+\[
+X\mid Z=n \sim \mathrm{B}\left(n,\frac{\lambda}{\lambda+\mu} \right) \quad  Y\mid Z=n \sim \mathrm{B}\left(n,\frac{\mu}{\lambda+\mu} \right)
+\]
+注意到
+\begin{align*}
+	P(X=k\mid X=n) & = \frac{P(X=k,X=n)}{P(X=n)} \\
+	 & =\frac{\frac{\lambda^k e^{-\lambda}}{k!}\cdot \frac{\mu^{n-k}e^{-\mu}}{(n-k)!}}{\frac{(\lambda+\mu)^n e^{-(\lambda+\mu)}}{n!}}\\
+	 &= \dbinom{n}{k} \left(\frac{\lambda}{\lambda+\mu} \right)^k \left(\frac{\mu}{\lambda+\mu} \right)^{n-k}  
+\end{align*}
+即可\\
+对于本题，记$N$为$(10,20]$时段总失效次数，$N_1$为$(10,20]$时段I型冲击导致的失效次数，$N_2$为$(10,20]$时段II型冲击导致的失效次数，则
+\[
+N=N_1+N_2 \quad N_1\sim \mathrm{P}(20) \quad N_2\sim \mathrm{P}(40)
+\]
+最后有
+\[
+\mathbb{E}[N_1\mid N=6]=2 \quad \mathbb{E}[N_2\mid N=6]=4
+\]\\
+
+	
+	
+	
+\noindent 4. （16分，每小题8分）某出租车公司的驾驶员可分为三类，第$i$类驾驶员每年发生的交通事故平均为$i$次，$i=1,2,3$，这三类驾驶员在公司的人数占比分别为$1/2$、$1/3$和$1/6$。现随机从该公司选择一名驾驶员，记$N(t)$为该驾驶员在时段$(0,t]$发生的交通事故。\\
+（1）问$\{N(t), t \geq 0\}$是什么样的概率模型？（要求详细描述）\\
+（2）给定$N(10)=4$，求该驾驶员属于第1类人员的概率。\\
+解：（1）$\{N(t), t \geq 0\}$是条件Poisson过程，设$N=1,2,3$为驾驶员的类型，则$N(t)\mid N=i$是速率为$i$的Poisson过程\\
+（2）利用
+\[
+P(N=i \mid N(t)=n)=\frac{P(N=i)P(N(t)=n\mid N=i)}{\sum\limits_{j}P(N=j)P(N(t)=n\mid N=j)}
+\]
+有
+\begin{align*}
+	P(N=1 \mid N(10)=4) &= \frac{\frac{1}{2}P(N(10)=4\mid N=1)}{\frac{1}{2}P(N(10)=4\mid N=1)+\frac{1}{3}P(N(10)=4\mid N=2)+\frac{1}{6}P(N(10)=4\mid N=3)} \\
+	& = \frac{\frac{1}{2}e^{-10} 10^4}{\frac{1}{2}e^{-10} 10^4+\frac{1}{3}e^{-20} 20^4+\frac{1}{6}e^{-30} 30^4}
+\end{align*}\\
+
+
+
+	
+	
+	
+	
+\noindent 5. （20分，每小题10分）设$\{N(t), t \geq 0\}$是强度为1的齐次Poisson过程，事件发生时刻序列记为$\{S_n, n \geq 1\}$，求$\mathbb{E}\left[\sum\limits_{k=1}^{N(t)} \log S_k \right]$。\\
+解：设$U_1,...,U_n\stackrel{i.i.d.}{\sim }\mathrm{U}(0,t)$，$(U_{(1)},U_{(n)})$为其次序统计量，则对$N(t)=n$取条件有
+\[
+\mathbb{E}\left[\sum\limits_{k=1}^{N(t)} \log S_k \mid N(t)=n \right]=\mathbb{E}\left[\sum\limits_{k=1}^{n} \log U_{(k)} \right]
+\]
+注意有限求和号内可以任意换序，就有
+\[
+\sum\limits_{k=1}^{n} \log U_{(k)}=\sum\limits_{k=1}^{n} \log U_{k} 
+\]
+则
+\[
+\mathbb{E}\left[\sum\limits_{k=1}^{n} \log U_{(k)} \right]=\mathbb{E}\left[\sum\limits_{k=1}^{n} \log U_{k} \right]=\sum\limits_{k=1}^{n}\mathbb{E}\left[\log U_{k} \right]
+\]
+另一方面
+\[
+\mathbb{E}\left[\log U_{k} \right]=\int_{0}^{t} \frac{1}{t} \log x dx=\log t -1
+\]
+则有
+\[
+\mathbb{E}\left[\sum\limits_{k=1}^{N(t)} \log S_k \mid N(t)=n \right]=n(\log t - 1)
+\]
+最后
+\[
+\mathbb{E}\left[\sum\limits_{k=1}^{N(t)} \log S_k  \right]=\mathbb{E}\left[\mathbb{E}\left[\sum\limits_{k=1}^{N(t)} \log S_k \mid N(t)=n \right] \right] =\mathbb{E}[N(t)](\log t - 1)=t(\log t - 1)
+\]\\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+\end{document}
