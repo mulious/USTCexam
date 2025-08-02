@@ -6,6 +6,10 @@ USTC管统学习资料
 
 试卷及答案有问题请发送至邮箱3589851379 at qq det com
 
-导航：
+# 导航：
 
 differential-equations  微分方程概论
+
+linear-algebra  线性代数B2
+
+
